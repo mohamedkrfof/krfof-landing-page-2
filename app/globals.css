@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  
+  /* Premium Gold Palette */
+  --classic-gold: #FFD700;        /* Standard gold - rich metallic */
+  --metallic-gold: #D4AF37;       /* Warm bronze-like gold */
+  --old-gold: #CFB53B;            /* Deep, subdued heritage gold */
+  --vegas-gold: #C5B358;          /* Unique gold/brown bronze */
+  --golden-brown: #996515;        /* Warm earthy gold-brown bridge */
+  
+  /* Premium Brown Palette */
+  --chocolate-brown: #7B3F00;     /* Standard chocolate brown */
+  --rich-chocolate: #623412;      /* Variant chocolate brown */
+  --traditional-brown: #964B00;   /* Traditional brown base */
+  --warm-brown: #964E02;          /* Rich reddish-brown */
+  --deep-brown: #321A18;          /* Rich dramatic brown */
+  --medium-chocolate: #7A553B;    /* Medium-toned chocolate */
+  
+  /* Light Variations for Backgrounds */
+  --light-gold: #FFF8DC;          /* Cornsilk - very light gold */
+  --cream-gold: #FAEBD7;          /* Antique white with gold hint */
+  --light-brown: #F5DEB3;         /* Wheat - light brown background */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  
+  /* Custom Gold Colors */
+  --color-classic-gold: var(--classic-gold);
+  --color-metallic-gold: var(--metallic-gold);
+  --color-old-gold: var(--old-gold);
+  --color-vegas-gold: var(--vegas-gold);
+  --color-golden-brown: var(--golden-brown);
+  
+  /* Custom Brown Colors */
+  --color-chocolate-brown: var(--chocolate-brown);
+  --color-rich-chocolate: var(--rich-chocolate);
+  --color-traditional-brown: var(--traditional-brown);
+  --color-warm-brown: var(--warm-brown);
+  --color-deep-brown: var(--deep-brown);
+  --color-medium-chocolate: var(--medium-chocolate);
+  
+  /* Light Background Colors */
+  --color-light-gold: var(--light-gold);
+  --color-cream-gold: var(--cream-gold);
+  --color-light-brown: var(--light-brown);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Custom utility classes for premium colors */
+.text-classic-gold { color: var(--classic-gold); }
+.text-metallic-gold { color: var(--metallic-gold); }
+.text-old-gold { color: var(--old-gold); }
+.text-vegas-gold { color: var(--vegas-gold); }
+.text-golden-brown { color: var(--golden-brown); }
+
+.text-chocolate-brown { color: var(--chocolate-brown); }
+.text-rich-chocolate { color: var(--rich-chocolate); }
+.text-traditional-brown { color: var(--traditional-brown); }
+.text-warm-brown { color: var(--warm-brown); }
+.text-deep-brown { color: var(--deep-brown); }
+.text-medium-chocolate { color: var(--medium-chocolate); }
+
+.bg-classic-gold { background-color: var(--classic-gold); }
+.bg-metallic-gold { background-color: var(--metallic-gold); }
+.bg-old-gold { background-color: var(--old-gold); }
+.bg-vegas-gold { background-color: var(--vegas-gold); }
+.bg-golden-brown { background-color: var(--golden-brown); }
+
+.bg-chocolate-brown { background-color: var(--chocolate-brown); }
+.bg-rich-chocolate { background-color: var(--rich-chocolate); }
+.bg-traditional-brown { background-color: var(--traditional-brown); }
+.bg-warm-brown { background-color: var(--warm-brown); }
+.bg-deep-brown { background-color: var(--deep-brown); }
+.bg-medium-chocolate { background-color: var(--medium-chocolate); }
+
+.bg-light-gold { background-color: var(--light-gold); }
+.bg-cream-gold { background-color: var(--cream-gold); }
+.bg-light-brown { background-color: var(--light-brown); }
+
+/* Border utilities */
+.border-classic-gold { border-color: var(--classic-gold); }
+.border-metallic-gold { border-color: var(--metallic-gold); }
+.border-chocolate-brown { border-color: var(--chocolate-brown); }
+.border-traditional-brown { border-color: var(--traditional-brown); }
