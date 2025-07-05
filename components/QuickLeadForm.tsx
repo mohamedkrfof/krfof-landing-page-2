@@ -230,7 +230,7 @@ export default function QuickLeadForm() {
         </button>
 
         <p className="text-xs text-gray-500 text-center mt-4">
-          بالنقر على "احصل على عرض أسعار فوري" فإنك توافق على سياسة الخصوصية وشروط الاستخدام
+          بالنقر على &quot;احصل على عرض أسعار فوري&quot; فإنك توافق على سياسة الخصوصية وشروط الاستخدام
         </p>
       </form>
     </div>

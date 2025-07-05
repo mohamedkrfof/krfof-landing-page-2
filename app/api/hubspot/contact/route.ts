@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     
     if (portalId && formId) {
       // Try the EU endpoint first (since your form URL contains eu1)
-      let apiUrl = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
+      const apiUrl = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
       
       const hubspotResponse = await fetch(apiUrl, {
         method: 'POST',

@@ -1,7 +1,7 @@
 'use client';
 
 import QuickLeadForm from '@/components/QuickLeadForm';
-import { Building2, Users, Award, Clock, Shield, CheckCircle, Star, Phone, Mail, MapPin, Truck, Package, Wrench, Crown, AlertTriangle, Ruler, Weight } from 'lucide-react';
+import { Award, Clock, Shield, CheckCircle, Star, Phone, MapPin, Truck, Package, Wrench, Crown, AlertTriangle, Ruler, Weight } from 'lucide-react';
 import Image from 'next/image';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
