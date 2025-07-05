@@ -28,55 +28,118 @@ export async function POST(request: NextRequest) {
     // Calculate basic lead score
     const leadScore = calculateLeadScore(leadData);
 
-    const hubspotResponse = await fetch(`https://api.hubapi.com/crm/v3/objects/contacts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`
-      },
-      body: JSON.stringify({
-        properties: {
-          email: leadData.email,
-          firstname: firstName,
-          lastname: lastName,
-          phone: leadData.phone,
-          company: leadData.company,
-          message: leadData.message || '',
-          lead_source: 'website',
-          lead_magnet: leadData.leadMagnet || 'دليل حلول التخزين المتقدمة',
-          hs_lead_status: 'NEW',
-          lead_score: leadScore.toString(),
-          lead_timestamp: leadData.timestamp,
-          device_info: JSON.stringify(leadData.deviceInfo),
-          page_url: leadData.url,
-          referrer: leadData.referrer,
-          event_id: leadData.eventId,
-          // Arabic market specific
-          market_region: 'saudi_arabia',
-          language_preference: 'arabic',
-          business_type: determineBusinessType(leadData.company)
-        }
-      })
-    });
-
-    if (!hubspotResponse.ok) {
-      const errorText = await hubspotResponse.text();
-      console.error('HubSpot API error:', errorText);
-      throw new Error(`HubSpot API error: ${hubspotResponse.status}`);
-    }
-
-    const result = await hubspotResponse.json();
+    // Option 1: Forms API (works with developer accounts)
+    const portalId = process.env.HUBSPOT_PORTAL_ID; // Your HubSpot Portal ID
+    const formId = process.env.HUBSPOT_FORM_ID; // Your HubSpot Form ID
     
-    // Optionally create a note with additional details
-    if (result.id && leadData.message) {
-      await createHubSpotNote(result.id, leadData);
+    if (portalId && formId) {
+      // Try the EU endpoint first (since your form URL contains eu1)
+      let apiUrl = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
+      
+      const hubspotResponse = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          fields: [
+            { name: 'email', value: leadData.email },
+            { name: 'firstname', value: firstName },
+            { name: 'lastname', value: lastName },
+            { name: 'phone', value: leadData.phone },
+            { name: 'company', value: leadData.company || '' },
+            { name: 'message', value: leadData.message || '' },
+            { name: 'jobtitle', value: leadData.quantity || '' }
+          ],
+          context: {
+            pageUri: leadData.url || '',
+            pageName: 'Lead Magnet Form'
+          }
+        })
+      });
+
+      if (!hubspotResponse.ok) {
+        const errorText = await hubspotResponse.text();
+        console.error('HubSpot Forms API error:', {
+          status: hubspotResponse.status,
+          statusText: hubspotResponse.statusText,
+          url: apiUrl,
+          portalId,
+          formId,
+          error: errorText
+        });
+        throw new Error(`HubSpot Forms API error: ${hubspotResponse.status} - ${errorText}`);
+      }
+
+      const result = await hubspotResponse.json();
+      
+      return NextResponse.json({ 
+        success: true, 
+        submissionId: result.id,
+        leadScore,
+        email: leadData.email,
+        method: 'forms_api'
+      });
     }
 
+    // Option 2: Private App (requires paid HubSpot account)
+    const privateAppToken = process.env.HUBSPOT_PRIVATE_APP_TOKEN;
+    
+    if (privateAppToken) {
+      const hubspotResponse = await fetch('https://api.hubapi.com/crm/v3/objects/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${privateAppToken}`
+        },
+        body: JSON.stringify({
+          properties: {
+            email: leadData.email,
+            firstname: firstName,
+            lastname: lastName,
+            phone: leadData.phone,
+            company: leadData.company || '',
+            message: leadData.message || '',
+            hs_lead_status: 'NEW',
+            website: leadData.url || '',
+            jobtitle: leadData.quantity || '',
+            hubspotscore: leadScore,
+            lead_source: 'website_form',
+            lead_source_detail: leadData.leadMagnet || 'lead_magnet',
+            business_type: determineBusinessType(leadData.company || ''),
+            market_region: 'saudi_arabia',
+            preferred_language: 'arabic'
+          }
+        })
+      });
+
+      if (!hubspotResponse.ok) {
+        const errorText = await hubspotResponse.text();
+        console.error('HubSpot Private App API error:', errorText);
+        throw new Error(`HubSpot Private App API error: ${hubspotResponse.status}`);
+      }
+
+      const result = await hubspotResponse.json();
+      
+      // Create note with additional details
+      if (result.id && leadData.message) {
+        await createHubSpotNote(result.id, leadData, privateAppToken);
+      }
+
+      return NextResponse.json({ 
+        success: true, 
+        contactId: result.id,
+        leadScore,
+        email: leadData.email,
+        method: 'private_app'
+      });
+    }
+
+    // If no HubSpot integration is configured
     return NextResponse.json({ 
-      success: true, 
-      contactId: result.id,
-      leadScore 
-    });
+      error: 'No HubSpot integration configured',
+      details: 'Please set up either Forms API or Private App integration'
+    }, { status: 400 });
 
   } catch (error) {
     console.error('HubSpot integration error:', error);
@@ -137,7 +200,7 @@ function determineBusinessType(companyName: string): string {
 }
 
 // Create a note in HubSpot with additional details
-async function createHubSpotNote(contactId: string, leadData: LeadData) {
+async function createHubSpotNote(contactId: string, leadData: LeadData, token: string) {
   try {
     const noteContent = `
 تفاصيل العميل المحتمل:
@@ -148,11 +211,11 @@ async function createHubSpotNote(contactId: string, leadData: LeadData) {
 - معرف الحدث: ${leadData.eventId}
     `.trim();
 
-    await fetch(`https://api.hubapi.com/crm/v3/objects/notes`, {
+    await fetch('https://api.hubapi.com/crm/v3/objects/notes', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
         properties: {

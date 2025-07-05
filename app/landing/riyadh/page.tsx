@@ -3,33 +3,8 @@
 import QuickLeadForm from '@/components/QuickLeadForm';
 import { Building2, Users, Award, Clock, Shield, CheckCircle, Star, Phone, Mail, MapPin, Truck, Package, Wrench, Crown, AlertTriangle, Ruler, Weight } from 'lucide-react';
 import Image from 'next/image';
-import { useKeenSlider } from 'keen-slider/react';
-import 'keen-slider/keen-slider.min.css';
 
-export default function HomePage() {
-  const [sliderRef] = useKeenSlider({
-    loop: true,
-    mode: 'free',
-    slides: {
-      perView: 1,
-      spacing: 15,
-    },
-    breakpoints: {
-      '(min-width: 640px)': {
-        slides: {
-          perView: 2,
-          spacing: 20,
-        },
-      },
-      '(min-width: 1024px)': {
-        slides: {
-          perView: 3,
-          spacing: 25,
-        },
-      },
-    },
-  });
-
+export default function RiyadhLandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-light-gold via-white to-cream-gold" dir="rtl">
       {/* Header */}
@@ -88,20 +63,9 @@ export default function HomePage() {
             <p className="text-xl sm:text-2xl md:text-3xl text-traditional-brown mb-8 sm:mb-12 leading-relaxed max-w-4xl mx-auto font-medium">
               تتحمل حتى 200 كيلو للرف الواحد، مواد مقاومة للصدأ والتآكل
               <span className="block text-lg sm:text-xl md:text-2xl text-warm-brown mt-2 font-semibold">
-                  توصيل مجاني للرياض وجدة والدمام، كميات كبيرة مع خصومات وضمان لمدة عام كامل
+                  توصيل مجاني إلى جميع أنحاء المملكة، شحن خلال 24 ساعة مع تركيب مجاني في الرياض، كميات كبيرة مع خصومات، وضمان لمدة عام كامل
               </span>
             </p>
-
-            {/* Product Hero Image */}
-            <div className="mb-8 sm:mb-12">
-              <div className="max-w-2xl mx-auto">
-                <img
-                  src="/a6t9c2rh0w6b1mmzirsbg9q80ikwli1i.jpg"
-                  alt="رفوف معدنية احترافية عالية الجودة للمستودعات والمخازن"
-                  className="w-full h-auto rounded-2xl shadow-2xl border-4 border-metallic-gold"
-                />
-              </div>
-            </div>
 
             {/* Key Benefits - Professional Gold/Brown Combinations */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12 max-w-4xl mx-auto">
@@ -115,18 +79,18 @@ export default function HomePage() {
               
               <div className="bg-gradient-to-br from-cream-gold to-light-brown p-4 sm:p-6 rounded-2xl shadow-lg border border-old-gold">
                 <div className="w-12 h-12 bg-metallic-gold rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Truck className="w-6 h-6 text-chocolate-brown" />
+                  <Clock className="w-6 h-6 text-chocolate-brown" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">توصيل مجاني</h3>
-                <p className="text-sm sm:text-base text-traditional-brown">توصيل مجاني للرياض وجدة والدمام</p>
+                <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">شحن سريع</h3>
+                <p className="text-sm sm:text-base text-traditional-brown">شحن خلال 24 ساعة في الرياض</p>
               </div>
               
               <div className="bg-gradient-to-br from-light-brown to-cream-gold p-4 sm:p-6 rounded-2xl shadow-lg border border-vegas-gold">
                 <div className="w-12 h-12 bg-vegas-gold rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Package className="w-6 h-6 text-chocolate-brown" />
+                  <Wrench className="w-6 h-6 text-chocolate-brown" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">كميات كبيرة</h3>
-                <p className="text-sm sm:text-base text-traditional-brown">مخزون كبير مع خصومات للكميات</p>
+                <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">تركيب مجاني</h3>
+                <p className="text-sm sm:text-base text-traditional-brown">تركيب مجاني لعملاء الرياض</p>
               </div>
             </div>
 
@@ -135,6 +99,25 @@ export default function HomePage() {
 
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             <div className="order-2 lg:order-1">
+              {/* Riyadh Special Features */}
+              <div className="bg-gradient-to-r from-metallic-gold to-classic-gold border-r-4 border-vegas-gold p-4 sm:p-6 mb-6 sm:mb-8 rounded-lg">
+                <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-3 sm:mb-4">مميزات خاصة لعملاء الرياض:</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-2 space-x-reverse">
+                    <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-chocolate-brown" />
+                    <span className="text-chocolate-brown font-medium text-sm sm:text-base">شحن خلال 24 ساعة فقط</span>
+                  </div>
+                  <div className="flex items-center space-x-2 space-x-reverse">
+                    <Wrench className="w-4 h-4 sm:w-5 sm:h-5 text-chocolate-brown" />
+                    <span className="text-chocolate-brown font-medium text-sm sm:text-base">تركيب مجاني بواسطة فريق متخصص</span>
+                  </div>
+                  <div className="flex items-center space-x-2 space-x-reverse">
+                    <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-chocolate-brown" />
+                    <span className="text-chocolate-brown font-medium text-sm sm:text-base">خدمة ما بعد البيع السريعة</span>
+                  </div>
+                </div>
+              </div>
+
               {/* Product Specifications */}
               <div className="bg-gradient-to-r from-light-gold to-cream-gold border-r-4 border-classic-gold p-4 sm:p-6 mb-6 sm:mb-8 rounded-lg">
                 <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-3 sm:mb-4">المواصفات التقنية:</h3>
@@ -212,10 +195,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Product Images Slider */}
+      {/* Product Images Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="keen-slider" ref={sliderRef}>
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate-brown mb-4">
+              أمثلة من منتجاتنا
+            </h2>
+            <p className="text-lg sm:text-xl text-traditional-brown max-w-3xl mx-auto">
+              رفوف تخزين عالية الجودة مصممة خصيصاً للاستخدام التجاري والصناعي
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {[
               { src: '/26262636.jpeg', alt: 'رف تخزين معدني قوي' },
               { src: '/71udlh+9LIL.jpg', alt: 'رف تخزين متعدد الطوابق' },
@@ -226,34 +218,31 @@ export default function HomePage() {
               { src: '/Regal-metalowy-magazynowy-MRC-5-H-2000mm-4-polki.jpeg', alt: 'رف تخزين بارتفاع 2 متر' },
               { src: '/a6t9c2rh0w6b1mmzirsbg9q80ikwli1i.jpg', alt: 'رف تخزين احترافي' }
             ].map((image, index) => (
-              <div key={index} className="keen-slider__slide">
-                <div className="aspect-square relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-white border border-cream-gold">
+              <div key={index} className="bg-gradient-to-br from-light-gold to-cream-gold rounded-2xl p-3 sm:p-4 shadow-lg border border-metallic-gold hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <div className="relative aspect-square overflow-hidden rounded-xl mb-3">
                   <Image
                     src={image.src}
                     alt={image.alt}
                     fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                 </div>
+                <p className="text-sm font-medium text-traditional-brown text-center">{image.alt}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-
-
-
-
       {/* Call to Action Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-chocolate-brown to-traditional-brown">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-classic-gold mb-6">
-            جاهز لتحويل مستودعك؟
+            جاهز لتحويل مستودعك في الرياض؟
           </h2>
           <p className="text-xl sm:text-2xl text-light-gold mb-8 max-w-3xl mx-auto">
-            احصل على استشارة مجانية وعرض أسعار مخصص لاحتياجاتك
+            احصل على استشارة مجانية وعرض أسعار مخصص مع تركيب مجاني
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
@@ -263,13 +252,11 @@ export default function HomePage() {
               احصل على عرض أسعار مجاني
             </a>
             <a
-              href="https://wa.me/966509770658?text=السلام%20عليكم%20ورحمة%20الله%20وبركاته%0A%0Aأرغب%20في%20الاستفسار%20عن%20عروض%20أسعار%20الرفوف%20المعدنية%20الجديدة%20وأحتاج%20إلى%3A%0A%0A-%20عرض%20أسعار%20مفصل%0A-%20معرفة%20الكميات%20المتوفرة%0A-%20تفاصيل%20التوصيل%20والتركيب%0A%0Aشكراً%20لكم"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="tel:+966509770658"
               className="bg-warm-brown text-light-gold px-8 py-4 rounded-lg font-bold text-lg hover:bg-deep-brown transition-colors duration-200 shadow-lg flex items-center"
             >
               <Phone className="w-5 h-5 ml-2" />
-              تواصل عبر واتساب
+              اتصل بنا الآن
             </a>
           </div>
         </div>
@@ -282,7 +269,7 @@ export default function HomePage() {
             <div>
               <h3 className="text-xl font-bold mb-4">شركة خبراء الرفوف المحدودة</h3>
               <p className="text-cream-gold mb-4">
-                نحن متخصصون في توفير حلول الرفوف الجديدة عالية الجودة للمؤسسات والشركات في جميع أنحاء المملكة العربية السعودية.
+                نحن متخصصون في توفير حلول الرفوف الجديدة عالية الجودة للمؤسسات والشركات في الرياض وجميع أنحاء المملكة العربية السعودية.
               </p>
               <div className="flex space-x-4 space-x-reverse">
                 <div className="w-10 h-10 bg-warm-brown rounded-full flex items-center justify-center">
@@ -298,22 +285,22 @@ export default function HomePage() {
             </div>
             
             <div>
-              <h4 className="text-lg font-semibold mb-4">خدماتنا</h4>
+              <h4 className="text-lg font-semibold mb-4">خدماتنا في الرياض</h4>
               <ul className="space-y-2 text-cream-gold">
                 <li className="flex items-center">
                   <CheckCircle className="w-4 h-4 ml-2 text-classic-gold" />
                   رفوف تخزين جديدة
                 </li>
                 <li className="flex items-center">
-                  <CheckCircle className="w-4 h-4 ml-2 text-classic-gold" />
-                  توصيل وتركيب مجاني
+                  <Clock className="w-4 h-4 ml-2 text-classic-gold" />
+                  شحن خلال 24 ساعة
                 </li>
                 <li className="flex items-center">
-                  <CheckCircle className="w-4 h-4 ml-2 text-classic-gold" />
-                  استشارات مجانية
+                  <Wrench className="w-4 h-4 ml-2 text-classic-gold" />
+                  تركيب مجاني
                 </li>
                 <li className="flex items-center">
-                  <CheckCircle className="w-4 h-4 ml-2 text-classic-gold" />
+                  <Shield className="w-4 h-4 ml-2 text-classic-gold" />
                   ضمان شامل
                 </li>
               </ul>

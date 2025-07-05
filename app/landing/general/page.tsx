@@ -3,33 +3,8 @@
 import QuickLeadForm from '@/components/QuickLeadForm';
 import { Building2, Users, Award, Clock, Shield, CheckCircle, Star, Phone, Mail, MapPin, Truck, Package, Wrench, Crown, AlertTriangle, Ruler, Weight } from 'lucide-react';
 import Image from 'next/image';
-import { useKeenSlider } from 'keen-slider/react';
-import 'keen-slider/keen-slider.min.css';
 
-export default function HomePage() {
-  const [sliderRef] = useKeenSlider({
-    loop: true,
-    mode: 'free',
-    slides: {
-      perView: 1,
-      spacing: 15,
-    },
-    breakpoints: {
-      '(min-width: 640px)': {
-        slides: {
-          perView: 2,
-          spacing: 20,
-        },
-      },
-      '(min-width: 1024px)': {
-        slides: {
-          perView: 3,
-          spacing: 25,
-        },
-      },
-    },
-  });
-
+export default function GeneralLandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-light-gold via-white to-cream-gold" dir="rtl">
       {/* Header */}
@@ -88,20 +63,9 @@ export default function HomePage() {
             <p className="text-xl sm:text-2xl md:text-3xl text-traditional-brown mb-8 sm:mb-12 leading-relaxed max-w-4xl mx-auto font-medium">
               تتحمل حتى 200 كيلو للرف الواحد، مواد مقاومة للصدأ والتآكل
               <span className="block text-lg sm:text-xl md:text-2xl text-warm-brown mt-2 font-semibold">
-                  توصيل مجاني للرياض وجدة والدمام، كميات كبيرة مع خصومات وضمان لمدة عام كامل
+                  توصيل مجاني إلى جميع أنحاء المملكة العربية السعودية، كميات كبيرة مع خصومات، وضمان لمدة عام كامل
               </span>
             </p>
-
-            {/* Product Hero Image */}
-            <div className="mb-8 sm:mb-12">
-              <div className="max-w-2xl mx-auto">
-                <img
-                  src="/a6t9c2rh0w6b1mmzirsbg9q80ikwli1i.jpg"
-                  alt="رفوف معدنية احترافية عالية الجودة للمستودعات والمخازن"
-                  className="w-full h-auto rounded-2xl shadow-2xl border-4 border-metallic-gold"
-                />
-              </div>
-            </div>
 
             {/* Key Benefits - Professional Gold/Brown Combinations */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12 max-w-4xl mx-auto">
@@ -118,7 +82,7 @@ export default function HomePage() {
                   <Truck className="w-6 h-6 text-chocolate-brown" />
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">توصيل مجاني</h3>
-                <p className="text-sm sm:text-base text-traditional-brown">توصيل مجاني للرياض وجدة والدمام</p>
+                <p className="text-sm sm:text-base text-traditional-brown">توصيل مجاني لجميع أنحاء المملكة</p>
               </div>
               
               <div className="bg-gradient-to-br from-light-brown to-cream-gold p-4 sm:p-6 rounded-2xl shadow-lg border border-vegas-gold">
@@ -212,10 +176,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Product Images Slider */}
+      {/* Product Images Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="keen-slider" ref={sliderRef}>
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate-brown mb-4">
+              أمثلة من منتجاتنا
+            </h2>
+            <p className="text-lg sm:text-xl text-traditional-brown max-w-3xl mx-auto">
+              رفوف تخزين عالية الجودة مصممة خصيصاً للاستخدام التجاري والصناعي
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {[
               { src: '/26262636.jpeg', alt: 'رف تخزين معدني قوي' },
               { src: '/71udlh+9LIL.jpg', alt: 'رف تخزين متعدد الطوابق' },
@@ -226,25 +199,22 @@ export default function HomePage() {
               { src: '/Regal-metalowy-magazynowy-MRC-5-H-2000mm-4-polki.jpeg', alt: 'رف تخزين بارتفاع 2 متر' },
               { src: '/a6t9c2rh0w6b1mmzirsbg9q80ikwli1i.jpg', alt: 'رف تخزين احترافي' }
             ].map((image, index) => (
-              <div key={index} className="keen-slider__slide">
-                <div className="aspect-square relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-white border border-cream-gold">
+              <div key={index} className="bg-gradient-to-br from-light-gold to-cream-gold rounded-2xl p-3 sm:p-4 shadow-lg border border-metallic-gold hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <div className="relative aspect-square overflow-hidden rounded-xl mb-3">
                   <Image
                     src={image.src}
                     alt={image.alt}
                     fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                 </div>
+                <p className="text-sm font-medium text-traditional-brown text-center">{image.alt}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-
-
-
 
       {/* Call to Action Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-r from-chocolate-brown to-traditional-brown">
@@ -263,13 +233,11 @@ export default function HomePage() {
               احصل على عرض أسعار مجاني
             </a>
             <a
-              href="https://wa.me/966509770658?text=السلام%20عليكم%20ورحمة%20الله%20وبركاته%0A%0Aأرغب%20في%20الاستفسار%20عن%20عروض%20أسعار%20الرفوف%20المعدنية%20الجديدة%20وأحتاج%20إلى%3A%0A%0A-%20عرض%20أسعار%20مفصل%0A-%20معرفة%20الكميات%20المتوفرة%0A-%20تفاصيل%20التوصيل%20والتركيب%0A%0Aشكراً%20لكم"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="tel:+966509770658"
               className="bg-warm-brown text-light-gold px-8 py-4 rounded-lg font-bold text-lg hover:bg-deep-brown transition-colors duration-200 shadow-lg flex items-center"
             >
               <Phone className="w-5 h-5 ml-2" />
-              تواصل عبر واتساب
+              اتصل بنا الآن
             </a>
           </div>
         </div>

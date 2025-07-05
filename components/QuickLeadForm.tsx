@@ -10,9 +10,7 @@ const formSchema = z.object({
   name: z.string().min(2, 'الاسم يجب أن يكون على الأقل حرفين'),
   email: z.string().email('البريد الإلكتروني غير صحيح'),
   phone: z.string().min(10, 'رقم الهاتف يجب أن يكون على الأقل 10 أرقام'),
-  company: z.string().min(2, 'اسم الشركة مطلوب'),
   quantity: z.string().min(1, 'الكمية المطلوبة مطلوبة'),
-  message: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -43,7 +41,7 @@ export default function QuickLeadForm() {
     try {
       // Submit to multiple endpoints
       const promises = [
-        // Zapier webhook
+        // Zapier webhook (handles HubSpot integration)
         fetch('https://hooks.zapier.com/hooks/catch/19651289/2a1vdak/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -53,13 +51,6 @@ export default function QuickLeadForm() {
             source: 'krfof-leadmagnet',
             timestamp: new Date().toISOString(),
           }),
-        }),
-
-        // HubSpot
-        fetch('/api/hubspot/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
         }),
 
         // Pixel tracking
@@ -153,38 +144,6 @@ export default function QuickLeadForm() {
           </div>
 
           <div>
-            <label htmlFor="company" className="block text-sm font-semibold text-gray-700 mb-2">
-              اسم الشركة *
-            </label>
-            <input
-              {...register('company')}
-              type="text"
-              className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-lg transition-colors"
-              placeholder="اسم شركتك أو مؤسستك"
-            />
-            {errors.company && (
-              <p className="mt-2 text-sm text-red-600">{errors.company.message}</p>
-            )}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div>
-            <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
-              البريد الإلكتروني *
-            </label>
-            <input
-              {...register('email')}
-              type="email"
-              className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-lg transition-colors"
-              placeholder="example@company.com"
-            />
-            {errors.email && (
-              <p className="mt-2 text-sm text-red-600">{errors.email.message}</p>
-            )}
-          </div>
-
-          <div>
             <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
               رقم الهاتف *
             </label>
@@ -201,38 +160,58 @@ export default function QuickLeadForm() {
         </div>
 
         <div>
-          <label htmlFor="quantity" className="block text-sm font-semibold text-gray-700 mb-2">
-            الكمية المطلوبة تقريباً *
+          <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+            البريد الإلكتروني *
           </label>
-          <select
-            {...register('quantity')}
+          <input
+            {...register('email')}
+            type="email"
             className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-lg transition-colors"
-          >
-            <option value="">اختر الكمية المطلوبة</option>
-            <option value="1-5">1-5 رفوف</option>
-            <option value="6-10">6-10 رفوف</option>
-            <option value="11-20">11-20 رف</option>
-            <option value="21-50">21-50 رف</option>
-            <option value="51-100">51-100 رف</option>
-            <option value="101-200">101-200 رف</option>
-            <option value="201-500">201-500 رف</option>
-            <option value="500+">أكثر من 500 رف</option>
-          </select>
-          {errors.quantity && (
-            <p className="mt-2 text-sm text-red-600">{errors.quantity.message}</p>
+            placeholder="example@company.com"
+          />
+          {errors.email && (
+            <p className="mt-2 text-sm text-red-600">{errors.email.message}</p>
           )}
         </div>
 
         <div>
-          <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
-            تفاصيل إضافية (اختياري)
+          <label className="block text-sm font-semibold text-gray-700 mb-4">
+            الكمية المطلوبة تقريباً *
           </label>
-          <textarea
-            {...register('message')}
-            rows={4}
-            className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-lg transition-colors resize-none"
-            placeholder="أي تفاصيل إضافية عن مشروعك أو متطلبات خاصة..."
-          />
+          <div className="grid grid-cols-3 gap-2 md:gap-3">
+            <label className="flex items-center p-2 md:p-4 border-2 border-gray-300 rounded-xl cursor-pointer hover:border-amber-500 transition-colors">
+              <input
+                type="radio"
+                {...register('quantity')}
+                value="1-5"
+                className="w-4 h-4 md:w-5 md:h-5 text-amber-600 focus:ring-amber-500 focus:ring-2"
+              />
+              <span className="mr-2 md:mr-3 text-sm md:text-lg font-medium text-gray-700">1-5 رفوف</span>
+            </label>
+            
+            <label className="flex items-center p-2 md:p-4 border-2 border-gray-300 rounded-xl cursor-pointer hover:border-amber-500 transition-colors">
+              <input
+                type="radio"
+                {...register('quantity')}
+                value="5-10"
+                className="w-4 h-4 md:w-5 md:h-5 text-amber-600 focus:ring-amber-500 focus:ring-2"
+              />
+              <span className="mr-2 md:mr-3 text-sm md:text-lg font-medium text-gray-700">5-10 رفوف</span>
+            </label>
+            
+            <label className="flex items-center p-2 md:p-4 border-2 border-gray-300 rounded-xl cursor-pointer hover:border-amber-500 transition-colors">
+              <input
+                type="radio"
+                {...register('quantity')}
+                value="10+"
+                className="w-4 h-4 md:w-5 md:h-5 text-amber-600 focus:ring-amber-500 focus:ring-2"
+              />
+              <span className="mr-2 md:mr-3 text-sm md:text-lg font-medium text-gray-700">أكثر من 10 رفوف</span>
+            </label>
+          </div>
+          {errors.quantity && (
+            <p className="mt-2 text-sm text-red-600">{errors.quantity.message}</p>
+          )}
         </div>
 
         <button
