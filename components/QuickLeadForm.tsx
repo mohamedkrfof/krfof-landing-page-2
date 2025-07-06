@@ -41,7 +41,26 @@ export default function QuickLeadForm() {
     try {
       // Submit to multiple endpoints
       const promises = [
-        // Zapier webhook (handles HubSpot integration)
+        // HubSpot integration (primary lead capture)
+        fetch('/api/hubspot/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...data,
+            company: data.quantity ? `الكمية: ${data.quantity}` : '',
+            message: `طلب عرض أسعار رفوف جديدة - الكمية: ${data.quantity}`,
+            leadMagnet: 'طلب عرض أسعار رفوف جديدة',
+            url: window.location.href,
+            referrer: document.referrer,
+            timestamp: new Date().toISOString(),
+            deviceInfo: {
+              platform: navigator.platform,
+              userAgent: navigator.userAgent,
+            },
+          }),
+        }),
+
+        // Zapier webhook (backup integration)
         fetch('https://hooks.zapier.com/hooks/catch/19651289/2a1vdak/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -51,6 +70,9 @@ export default function QuickLeadForm() {
             source: 'krfof-leadmagnet',
             timestamp: new Date().toISOString(),
           }),
+        }).catch(err => {
+          console.warn('Zapier webhook failed:', err);
+          return null; // Don't fail the whole form if Zapier fails
         }),
 
         // Pixel tracking
@@ -59,7 +81,9 @@ export default function QuickLeadForm() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             event: 'lead_generated',
-            data: data,
+            email: data.email,
+            phone: data.phone,
+            url: window.location.href,
           }),
         }),
       ];

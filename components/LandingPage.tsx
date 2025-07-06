@@ -33,7 +33,7 @@ export default function LandingPage({ config }: LandingPageProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-light-gold via-white to-cream-gold" dir="rtl">
+    <div className="min-h-screen bg-white" dir="rtl">
       <Header />
       <NoticeBanner />
 
