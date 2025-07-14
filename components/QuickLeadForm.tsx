@@ -76,15 +76,33 @@ export default function QuickLeadForm() {
           return null; // Don't fail the whole form if Zapier fails
         }),
 
-        // Pixel tracking
-        fetch('/api/pixels/track', {
+        // Enhanced tracking for main lead event (25+ parameters)
+        fetch('/api/tracking/enhanced', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            event: 'lead_generated',
             email: data.email,
             phone: data.phone,
+            name: data.name,
+            quantity: data.quantity,
+            
+            // Form metadata
+            form_name: 'quick_lead_form',
+            form_page: window.location.pathname,
+            form_step: 'completion',
+            completion_time: Date.now(),
+            
+            // Campaign data (from URL parameters)
+            utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+            utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
+            utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign'),
+            utm_term: new URLSearchParams(window.location.search).get('utm_term'),
+            utm_content: new URLSearchParams(window.location.search).get('utm_content'),
+            
+            // Page data
             url: window.location.href,
+            referrer: document.referrer,
+            timestamp: new Date().toISOString(),
           }),
         }),
       ];

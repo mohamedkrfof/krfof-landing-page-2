@@ -17,29 +17,31 @@ export default function ThankYouPage() {
       setLeadData(JSON.parse(storedLeadData));
     }
 
-    // Track thank you page view
+    // Track thank you page view (light tracking to avoid duplication)
     if (typeof window !== 'undefined') {
-      // Track with pixels
+      // Track page view only (main conversion already tracked on form submission)
       fetch('/api/pixels/track', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           event: 'thank_you_page_view',
           url: window.location.href,
-          leadData: storedLeadData ? JSON.parse(storedLeadData) : null,
+          referrer: document.referrer,
+          timestamp: new Date().toISOString(),
+          useLegacy: true, // Use simple tracking for page view
         }),
       });
 
-      // Track conversion with enhanced tracking
-      fetch('/api/tracking/enhanced', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event: 'conversion_completed',
-          url: window.location.href,
-          leadData: storedLeadData ? JSON.parse(storedLeadData) : null,
-        }),
-      });
+      // Client-side pixel events for thank you page
+      if (typeof (window as any).fbq !== 'undefined') {
+        (window as any).fbq('track', 'PageView');
+      }
+      if (typeof (window as any).gtag !== 'undefined') {
+        (window as any).gtag('event', 'page_view', {
+          page_title: 'Thank You',
+          page_location: window.location.href,
+        });
+      }
     }
   }, []);
 
@@ -81,19 +83,19 @@ export default function ThankYouPage() {
               <div className="space-y-3 text-right">
                 <div className="flex justify-between items-center">
                   <span className="text-body text-traditional-brown">الاسم:</span>
-                  <span className="text-body font-semibold text-chocolate-brown">{leadData.name}</span>
+                  <span className="text-body font-semibold text-chocolate-brown">{String(leadData.name || '')}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-body text-traditional-brown">رقم الهاتف:</span>
-                  <span className="text-body font-semibold text-chocolate-brown">{leadData.phone}</span>
+                  <span className="text-body font-semibold text-chocolate-brown">{String(leadData.phone || '')}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-body text-traditional-brown">البريد الإلكتروني:</span>
-                  <span className="text-body font-semibold text-chocolate-brown">{leadData.email}</span>
+                  <span className="text-body font-semibold text-chocolate-brown">{String(leadData.email || '')}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-body text-traditional-brown">الكمية المطلوبة:</span>
-                  <span className="text-body font-semibold text-chocolate-brown">{leadData.quantity} رفوف</span>
+                  <span className="text-body font-semibold text-chocolate-brown">{String(leadData.quantity || '')} رفوف</span>
                 </div>
               </div>
             </div>
