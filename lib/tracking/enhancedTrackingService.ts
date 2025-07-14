@@ -67,7 +67,7 @@ export class EnhancedTrackingService {
         ...hashedUserData,
         // Add non-hashed data
         client_ip_address: await this.getClientIP(),
-        client_user_agent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined,
+        client_user_agent: leadData.user_agent as string | undefined,
       });
 
              // Enhance custom data with comprehensive business intelligence
@@ -88,9 +88,9 @@ export class EnhancedTrackingService {
         event_name: 'Lead',
         event_time: Math.floor(Date.now() / 1000),
         event_id: eventId,
-        event_source_url: typeof window !== 'undefined' ? window.location.href : '',
+        event_source_url: (leadData.url as string) || '',
         action_source: 'website',
-        referrer_url: typeof window !== 'undefined' ? document.referrer : undefined,
+        referrer_url: leadData.referrer as string | undefined,
         user_data: enhancedUserData,
         custom_data: enhancedCustomData,
         device_data: deviceData,
@@ -187,7 +187,7 @@ export class EnhancedTrackingService {
         data_processing_options: [], // Add LDU if needed for GDPR compliance
       };
 
-      const response = await fetch(`https://graph.facebook.com/v18.0/${this.config.platforms.meta.dataset_id}/events`, {
+      const response = await fetch(`https://graph.facebook.com/v18.0/${this.config.platforms.meta.pixel_id}/events`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

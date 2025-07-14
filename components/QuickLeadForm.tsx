@@ -109,6 +109,39 @@ export default function QuickLeadForm() {
 
       await Promise.all(promises);
       
+      // 🎯 DUAL-LAYER LEAD EVENT TRACKING
+      // Fire browser-side Meta pixel Lead event (immediate tracking)
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        try {
+          (window as any).fbq('track', 'Lead', {
+            content_name: 'رفوف معدنية - طلب عرض أسعار',
+            content_category: 'shelving_quote_request',
+            value: parseFloat(data.quantity) || 1,
+            currency: 'SAR',
+            contents: [{
+              id: 'shelving_quote',
+              quantity: parseInt(data.quantity) || 1,
+              item_price: 100 // Estimated value
+            }],
+            // Campaign attribution
+            utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+            utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
+            utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign'),
+            // Lead info (hashed for privacy)
+            email: data.email,
+            phone: data.phone,
+            city: window.location.pathname.split('/').pop() || 'general',
+            form_location: window.location.pathname,
+            event_source_url: window.location.href,
+            // Timing
+            timestamp: Math.floor(Date.now() / 1000),
+          });
+          console.log('✅ Browser-side Lead event fired to Meta pixel');
+        } catch (err) {
+          console.warn('Browser-side Lead event failed:', err);
+        }
+      }
+      
       // Store lead data in session storage for enhanced tracking on thank you page
       const leadDataForTracking = {
         email: data.email,
