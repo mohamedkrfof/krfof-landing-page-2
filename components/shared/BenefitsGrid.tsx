@@ -27,8 +27,8 @@ export default function BenefitsGrid({ benefits }: BenefitsGridProps) {
             <div className={`w-12 h-12 ${benefit.iconBg} rounded-full flex items-center justify-center mx-auto mb-3`}>
               <IconComponent className="w-6 h-6 text-chocolate-brown" />
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">{benefit.title}</h3>
-            <p className="text-sm sm:text-base text-traditional-brown">{benefit.description}</p>
+            <h3 className="text-heading-3 font-bold text-chocolate-brown mb-2">{benefit.title}</h3>
+            <p className="text-body text-traditional-brown">{benefit.description}</p>
           </div>
         );
       })}

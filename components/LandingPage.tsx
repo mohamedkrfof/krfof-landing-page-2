@@ -43,21 +43,21 @@ export default function LandingPage({ config }: LandingPageProps) {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <div className="inline-flex items-center bg-gradient-to-r from-cream-gold to-light-brown text-chocolate-brown px-4 py-2 rounded-full text-sm font-semibold mb-6 sm:mb-8 shadow-sm">
+            <div className="inline-flex items-center bg-gradient-to-r from-cream-gold to-light-brown text-chocolate-brown px-4 py-2 rounded-full text-small font-semibold mb-6 sm:mb-8 shadow-sm">
               <Crown className="w-4 h-4 ml-2" />
               الرفوف الجديدة عالية الجودة - لا نتعامل مع المستعملة
             </div>
             
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-chocolate-brown via-traditional-brown to-chocolate-brown mb-6 sm:mb-8 leading-tight">
+            <h1 className="text-hero font-bold text-transparent bg-clip-text bg-gradient-to-r from-chocolate-brown via-traditional-brown to-chocolate-brown mb-6 sm:mb-8">
               رفوف التخزين المثالية للمؤسسات والشركات
-              <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2 bg-gradient-to-r from-metallic-gold to-old-gold bg-clip-text text-transparent">
+              <span className="block text-heading-1 mt-2 bg-gradient-to-r from-metallic-gold to-old-gold bg-clip-text text-transparent">
                 بجودة استثنائية
               </span>
             </h1>
             
-            <p className="text-xl sm:text-2xl md:text-3xl text-traditional-brown mb-8 sm:mb-12 leading-relaxed max-w-4xl mx-auto font-medium">
+            <p className="text-lead text-traditional-brown mb-8 sm:mb-12 max-w-4xl mx-auto font-medium">
               تتحمل حتى 200 كيلو للرف الواحد، مواد مقاومة للصدأ والتآكل
-              <span className="block text-lg sm:text-xl md:text-2xl text-warm-brown mt-2 font-semibold">
+              <span className="block text-body text-warm-brown mt-2 font-semibold">
                 {config.deliveryInfo}
               </span>
             </p>
@@ -81,7 +81,7 @@ export default function LandingPage({ config }: LandingPageProps) {
               {/* City Special Features */}
               {config.specialFeatures.length > 0 && (
                 <div className="bg-gradient-to-r from-metallic-gold to-classic-gold border-r-4 border-vegas-gold p-4 sm:p-6 mb-6 sm:mb-8 rounded-lg">
-                  <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-3 sm:mb-4">
+                  <h3 className="text-heading-3 font-bold text-chocolate-brown mb-3 sm:mb-4">
                     مميزات خاصة لعملاء {config.arabicName}:
                   </h3>
                   <div className="space-y-3">
@@ -90,7 +90,7 @@ export default function LandingPage({ config }: LandingPageProps) {
                       return (
                         <div key={index} className="flex items-center space-x-2 space-x-reverse">
                           <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-chocolate-brown" />
-                          <span className="text-chocolate-brown font-medium text-sm sm:text-base">{feature.text}</span>
+                          <span className="text-chocolate-brown font-medium text-body">{feature.text}</span>
                         </div>
                       );
                     })}
@@ -106,28 +106,28 @@ export default function LandingPage({ config }: LandingPageProps) {
                   <div className="w-5 h-5 sm:w-6 sm:h-6 bg-metallic-gold rounded-full flex items-center justify-center flex-shrink-0">
                     <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-chocolate-brown" />
                   </div>
-                  <p className="text-base sm:text-lg text-chocolate-brown">لا يحتاج تثبيت في الجدار - ثابت وآمن</p>
+                  <p className="text-body text-chocolate-brown">لا يحتاج تثبيت في الجدار - ثابت وآمن</p>
                 </div>
                 <div className="flex items-center space-x-3 space-x-reverse">
                   <div className="w-5 h-5 sm:w-6 sm:h-6 bg-metallic-gold rounded-full flex items-center justify-center flex-shrink-0">
                     <Wrench className="w-3 h-3 sm:w-4 sm:h-4 text-chocolate-brown" />
                   </div>
-                  <p className="text-base sm:text-lg text-chocolate-brown">أرفف قابلة للتعديل حسب احتياجاتك</p>
+                  <p className="text-body text-chocolate-brown">أرفف قابلة للتعديل حسب احتياجاتك</p>
                 </div>
                 <div className="flex items-center space-x-3 space-x-reverse">
                   <div className="w-5 h-5 sm:w-6 sm:h-6 bg-metallic-gold rounded-full flex items-center justify-center flex-shrink-0">
                     <Shield className="w-3 h-3 sm:w-4 sm:h-4 text-chocolate-brown" />
                   </div>
-                  <p className="text-base sm:text-lg text-chocolate-brown">متينة وتدوم لفترة طويلة - مقاومة للرطوبة والحرارة</p>
+                  <p className="text-body text-chocolate-brown">متينة وتدوم لفترة طويلة - مقاومة للرطوبة والحرارة</p>
                 </div>
               </div>
 
               <div className="bg-gradient-to-r from-cream-gold to-light-brown border-r-4 border-vegas-gold p-4 sm:p-6 mb-6 sm:mb-8 rounded-lg">
                 <div className="flex items-center mb-2">
                   <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-warm-brown ml-2" />
-                  <p className="text-chocolate-brown font-semibold text-sm sm:text-base">مساعدة في الحساب</p>
+                  <p className="text-chocolate-brown font-semibold text-body">مساعدة في الحساب</p>
                 </div>
-                <p className="text-traditional-brown text-sm sm:text-base">
+                <p className="text-traditional-brown text-body">
                   نساعدك في حساب عدد الرفوف المطلوبة والأحجام المناسبة لمساحتك
                 </p>
               </div>
@@ -137,11 +137,11 @@ export default function LandingPage({ config }: LandingPageProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div className="flex items-center space-x-2 space-x-reverse">
                     <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-metallic-gold" />
-                    <span className="text-sm text-traditional-brown font-medium">متوفر بألوان مختلفة</span>
+                    <span className="text-small text-traditional-brown font-medium">متوفر بألوان مختلفة</span>
                   </div>
                   <div className="flex items-center space-x-2 space-x-reverse">
                     <Ruler className="w-4 h-4 sm:w-5 sm:h-5 text-metallic-gold" />
-                    <span className="text-sm text-traditional-brown font-medium">أحجام متنوعة حسب الحاجة</span>
+                    <span className="text-small text-traditional-brown font-medium">أحجام متنوعة حسب الحاجة</span>
                   </div>
                 </div>
               </div>
@@ -158,10 +158,10 @@ export default function LandingPage({ config }: LandingPageProps) {
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate-brown mb-4">
+            <h2 className="text-heading-1 font-bold text-chocolate-brown mb-4">
               أمثلة من منتجاتنا
             </h2>
-            <p className="text-lg sm:text-xl text-traditional-brown max-w-3xl mx-auto">
+            <p className="text-lead text-traditional-brown max-w-3xl mx-auto">
               رفوف تخزين عالية الجودة مصممة خصيصاً للاستخدام التجاري والصناعي
             </p>
           </div>
@@ -179,7 +179,7 @@ export default function LandingPage({ config }: LandingPageProps) {
                   />
                 </div>
                 <div className="p-3 sm:p-4">
-                  <p className="text-xs sm:text-sm text-traditional-brown font-medium text-center">{image.alt}</p>
+                  <p className="text-small text-traditional-brown font-medium text-center">{image.alt}</p>
                 </div>
               </div>
             ))}

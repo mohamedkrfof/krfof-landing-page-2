@@ -95,7 +95,7 @@ NEXT_PUBLIC_BRAND_NAME=شركة خبراء الرفوف المحدودة
 NEXT_PUBLIC_GTM_ID=GTM-GTM-PNLX8748
 
 # Pixel IDs
-NEXT_PUBLIC_FACEBOOK_PIXEL_ID=843643277554384
+NEXT_PUBLIC_FACEBOOK_PIXEL_ID=1828066298063484
 NEXT_PUBLIC_SNAPCHAT_PIXEL_ID=0d75ef7a-3830-4fce-b470-fee261e4b06e
 NEXT_PUBLIC_TIKTOK_PIXEL_ID=CKHS5RRC77UFTHK7BKJ0
 NEXT_PUBLIC_GOOGLE_ADS_ID=AW-632-400-8142
@@ -2304,7 +2304,7 @@ HUBSPOT_API_KEY=your_hubspot_private_app_token
 HUBSPOT_PORTAL_ID=your_hubspot_portal_id
 
 # Meta Pixel Integration
-FACEBOOK_PIXEL_ID=843643277554384
+FACEBOOK_PIXEL_ID=1828066298063484
 FACEBOOK_CONVERSION_API_TOKEN=your_facebook_capi_token
 
 # Google Ads Integration
@@ -3551,7 +3551,7 @@ export async function POST(request: NextRequest) {
     const eventId = `${data.event}_${Date.now()}`;
 
     // Basic Meta Pixel
-    const metaResponse = await fetch(`https://graph.facebook.com/v18.0/843643277554384/events`, {
+    const metaResponse = await fetch(`https://graph.facebook.com/v18.0/1828066298063484/events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

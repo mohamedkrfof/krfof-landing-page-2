@@ -18,7 +18,7 @@ export default function Header() {
           </div>
           <div className="flex items-center" dir="ltr">
             <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-traditional-brown ml-2" />
-            <span className="text-sm sm:text-base font-medium text-traditional-brown">+966 50 977 0658</span>
+            <span className="text-body font-medium text-traditional-brown">+966 50 977 0658</span>
           </div>
         </div>
       </div>

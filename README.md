@@ -55,7 +55,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see your lead magnet!
 
 ### Meta Pixel Setup
 1. Go to Meta Business Manager → Events Manager
-2. Select your pixel (843643277554384)
+2. Select your pixel (1828066298063484)
 3. Go to Settings → Conversions API
 4. Generate access token and add to `META_ACCESS_TOKEN`
 
@@ -115,7 +115,7 @@ The app is compatible with any platform that supports Next.js:
 ## 📈 Analytics & Tracking
 
 ### Configured Pixels:
-- **Meta Pixel**: 843643277554384
+- **Meta Pixel**: 1828066298063484
 - **Snapchat Pixel**: 0d75ef7a-3830-4fce-b470-fee261e4b06e  
 - **TikTok Pixel**: CKHS5RRC77UFTHK7BKJ0
 - **Google Analytics**: AW-632-400-8142

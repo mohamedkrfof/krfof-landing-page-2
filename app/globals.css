@@ -4,6 +4,9 @@
   --background: #ffffff;
   --foreground: #171717;
   
+  /* Font System - Next.js generates these variables automatically */
+  --font-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
   /* Premium Gold Palette */
   --classic-gold: #FFD700;        /* Standard gold - rich metallic */
   --metallic-gold: #D4AF37;       /* Warm bronze-like gold */
@@ -28,7 +31,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-arabic);
+  --font-inter: var(--font-inter);
   --font-mono: var(--font-geist-mono);
   
   /* Custom Gold Colors */
@@ -66,7 +70,110 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-arabic), 'Segoe UI', Tahoma, Arial, sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Typography System */
+.font-arabic { font-family: var(--font-arabic), 'Segoe UI', Tahoma, Arial, sans-serif; }
+.font-inter { font-family: var(--font-inter), 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; }
+
+/* Font Weight Utilities */
+.font-light { font-weight: 300; }
+.font-regular { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+
+/* Typography Hierarchy */
+.text-hero {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.text-heading-1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.text-heading-2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.text-heading-3 {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.text-lead {
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.text-body {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.text-small {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.text-caption {
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+/* Button Typography */
+.btn-text {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+
+.btn-text-sm {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Form Typography */
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.form-input {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.form-error {
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 /* Custom utility classes for premium colors */
@@ -105,3 +212,27 @@ body {
 .border-metallic-gold { border-color: var(--metallic-gold); }
 .border-chocolate-brown { border-color: var(--chocolate-brown); }
 .border-traditional-brown { border-color: var(--traditional-brown); }
+
+/* Performance optimizations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* RTL Typography adjustments */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .text-hero,
+[dir="rtl"] .text-heading-1,
+[dir="rtl"] .text-heading-2,
+[dir="rtl"] .text-heading-3 {
+  letter-spacing: 0;
+}
+
+/* Arabic number display */
+.arabic-numbers {
+  font-variant-numeric: lining-nums;
+  font-feature-settings: "tnum";
+}

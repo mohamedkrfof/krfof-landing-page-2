@@ -1,9 +1,25 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, IBM_Plex_Sans_Arabic } from 'next/font/google'
 import './globals.css'
 import Script from 'next/script'
 
-const inter = Inter({ subsets: ['latin'] })
+// Configure Inter for Latin text with optimized loading
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
+  preload: true,
+})
+
+// Configure IBM Plex Arabic for Arabic text with RTL support
+const ibmPlexArabic = IBM_Plex_Sans_Arabic({
+  subsets: ['arabic'],
+  variable: '--font-arabic',
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
+  preload: true,
+})
 
 export const metadata: Metadata = {
   title: 'دليل حلول التخزين المتقدمة - شركة خبراء الرفوف المحدودة',
@@ -26,7 +42,19 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl">
       <head>
-        {/* Google Tag Manager */}
+        {/* Font Preloading for Performance */}
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          as="style"
+        />
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap"
+          as="style"
+        />
+        
+        {/* Google Tag Manager - NEW CLEAN CONTAINER */}
         <Script
           id="gtm-script"
           strategy="afterInteractive"
@@ -36,7 +64,7 @@ export default function RootLayout({
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-PNLX8748');
+              })(window,document,'script','dataLayer','GTM-TFWF4C3V');
             `
           }}
         />
@@ -59,7 +87,7 @@ export default function RootLayout({
           }}
         />
 
-        {/* Meta Pixel */}
+        {/* Meta Pixel - PRODUCTION */}
         <Script
           id="meta-pixel"
           strategy="afterInteractive"
@@ -73,7 +101,7 @@ export default function RootLayout({
               t.src=v;s=b.getElementsByTagName(e)[0];
               s.parentNode.insertBefore(t,s)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '843643277554384');
+              fbq('init', '1828066298063484');
               fbq('track', 'PageView');
             `
           }}
@@ -114,11 +142,11 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
-        {/* Google Tag Manager (noscript) */}
+      <body className={`${inter.variable} ${ibmPlexArabic.variable} font-arabic`}>
+        {/* Google Tag Manager (noscript) - NEW CLEAN CONTAINER */}
         <noscript>
           <iframe 
-            src="https://www.googletagmanager.com/ns.html?id=GTM-PNLX8748"
+            src="https://www.googletagmanager.com/ns.html?id=GTM-TFWF4C3V"
             height="0" 
             width="0" 
             style={{display: 'none', visibility: 'hidden'}}
