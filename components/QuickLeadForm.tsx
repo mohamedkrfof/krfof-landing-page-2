@@ -40,6 +40,28 @@ export default function QuickLeadForm() {
     setError(null);
 
     try {
+      // Collect browser cookies for Meta tracking
+      const getFacebookBrowserId = () => {
+        const fbpCookie = document.cookie.split('; ').find(row => row.startsWith('_fbp='));
+        return fbpCookie ? fbpCookie.split('=')[1] : undefined;
+      };
+
+      const getFacebookClickId = () => {
+        // Check URL parameter first
+        const urlParams = new URLSearchParams(window.location.search);
+        const fbclid = urlParams.get('fbclid');
+        
+        if (fbclid) {
+          // Format according to Meta standards: fb.subdomain.timestamp.fbclid
+          const timestamp = Date.now();
+          return `fb.1.${timestamp}.${fbclid}`;
+        }
+        
+        // Check cookie
+        const fbcCookie = document.cookie.split('; ').find(row => row.startsWith('_fbc='));
+        return fbcCookie ? fbcCookie.split('=')[1] : undefined;
+      };
+
       // Submit to multiple endpoints
       const promises = [
         // HubSpot integration (primary lead capture)
@@ -54,6 +76,10 @@ export default function QuickLeadForm() {
             url: window.location.href,
             referrer: document.referrer,
             timestamp: new Date().toISOString(),
+            // Facebook tracking data for Meta pixel
+            fbp: getFacebookBrowserId(),
+            fbc: getFacebookClickId(),
+            user_agent: navigator.userAgent,
             deviceInfo: {
               platform: navigator.platform,
               userAgent: navigator.userAgent,
@@ -244,6 +270,8 @@ export default function QuickLeadForm() {
             <p className="form-error mt-2 text-red-600">{errors.email.message}</p>
           )}
         </div>
+
+
 
         <div>
           <label className="form-label block text-traditional-brown mb-4">

@@ -31,6 +31,134 @@ export class EnhancedTrackingService {
   }
 
   /**
+   * Track page view with comprehensive data
+   */
+  public async trackPageView(pageData: {
+    page_url: string;
+    page_title?: string;
+    city?: string;
+    referrer?: string;
+    content_name?: string;
+    [key: string]: unknown;
+  }): Promise<MultiPlatformTrackingResponse> {
+    const eventId = `view_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    try {
+      // Collect device and session data
+      const deviceData = this.dataEnrichment.collectDeviceData();
+      const sessionData = this.dataEnrichment.collectSessionData();
+
+      // Enhanced custom data for ViewContent
+      const enhancedCustomData = this.dataEnrichment.enhanceCustomData({
+        currency: 'SAR',
+        value: 1, // Page view value
+        content_name: pageData.content_name || 'رفوف تخزين معدنية',
+        content_category: 'lead_magnet',
+        content_type: 'product_catalog',
+        custom_data: {
+          page_type: 'landing_page',
+          city: pageData.city,
+        }
+      }, pageData);
+
+      // Create comprehensive tracking event for ViewContent
+      const trackingEvent: EnhancedTrackingEvent = {
+        event_name: 'ViewContent',
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: eventId,
+        event_source_url: pageData.page_url,
+        action_source: 'website',
+        referrer_url: pageData.referrer,
+        user_data: {}, // No user data for page views
+        custom_data: enhancedCustomData,
+        device_data: deviceData,
+        session_data: sessionData,
+      };
+
+      // Send to all platforms in parallel
+      const platformPromises = [];
+
+      if (this.config.platforms.meta.enabled) {
+        platformPromises.push(this.sendToMeta(trackingEvent));
+      }
+
+      if (this.config.platforms.google.enabled) {
+        platformPromises.push(this.sendToGoogle(trackingEvent));
+      }
+
+      if (this.config.platforms.tiktok.enabled) {
+        platformPromises.push(this.sendToTikTok(trackingEvent));
+      }
+
+      if (this.config.platforms.snapchat.enabled) {
+        platformPromises.push(this.sendToSnapchat(trackingEvent));
+      }
+
+      // Execute all platform calls in parallel
+      const results = await Promise.allSettled(platformPromises);
+
+      // Process results
+      const trackingResults: TrackingResponse[] = [];
+      let successCount = 0;
+      let failureCount = 0;
+
+      results.forEach((result, index) => {
+        const platforms = ['meta', 'google', 'tiktok', 'snapchat'];
+        const platform = platforms[index];
+
+        if (result.status === 'fulfilled' && result.value) {
+          trackingResults.push({
+            platform,
+            success: true,
+            event_id: eventId,
+            response_data: result.value,
+            timestamp: Date.now(),
+          });
+          successCount++;
+        } else {
+          const error = result.status === 'rejected' ? result.reason : 'Unknown error';
+          trackingResults.push({
+            platform,
+            success: false,
+            event_id: eventId,
+            error: String(error),
+            timestamp: Date.now(),
+          });
+          failureCount++;
+        }
+      });
+
+      const responses: MultiPlatformTrackingResponse = {
+        event_id: eventId,
+        results: trackingResults,
+        success_count: successCount,
+        failure_count: failureCount,
+        total_platforms: trackingResults.length,
+        timestamp: Date.now(),
+      };
+
+      return responses;
+
+    } catch (error) {
+      console.error('Enhanced page view tracking error:', error);
+      return {
+        event_id: eventId,
+        results: [{
+          platform: 'system',
+          success: false,
+          event_id: eventId,
+          error: String(error),
+          timestamp: Date.now(),
+        }],
+        success_count: 0,
+        failure_count: 1,
+        total_platforms: 1,
+        timestamp: Date.now(),
+      };
+    }
+  }
+
+  /**
    * Main tracking method - sends comprehensive lead event to all platforms
    */
   public async trackLead(leadData: {

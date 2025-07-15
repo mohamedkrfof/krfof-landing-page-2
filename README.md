@@ -18,32 +18,62 @@ A complete lead magnet system built with Next.js 15, featuring Arabic RTL suppor
 npm install
 ```
 
-### 2. Environment Variables
-Copy `.env.example` to `.env.local` and configure:
+### 2. Environment Variables Setup
+⚠️ **IMPORTANT**: Before running the project, you must configure environment variables.
+
+1. **Read the setup guide**: Check `PRODUCTION_ENVIRONMENT_SETUP.md` for detailed instructions
+2. **Create `.env.local` file** with the following required variables:
 
 ```bash
-# HubSpot Integration
+# Critical environment variables (get from respective platforms)
 HUBSPOT_ACCESS_TOKEN=your_hubspot_private_app_token_here
-
-# Meta/Facebook Pixel API
-META_ACCESS_TOKEN=your_meta_access_token_here
-
-# Snapchat Pixel API
+META_ACCESS_TOKEN=your_meta_conversions_api_token_here
 SNAPCHAT_ACCESS_TOKEN=your_snapchat_access_token_here
-
-# TikTok Events API
 TIKTOK_ACCESS_TOKEN=your_tiktok_access_token_here
+GA4_MEASUREMENT_ID=AW-632-400-8142
+GA4_API_SECRET=your_ga4_api_secret_here
 
-# Zapier Webhook (already configured)
+# Already configured
 ZAPIER_WEBHOOK_URL=https://hooks.zapier.com/hooks/catch/23446220/uoz8ssr/
 ```
 
-### 3. Run Development Server
+### 3. Test Setup
+```bash
+# Run integration tests
+node test-hubspot-now.js
+node test-hybrid-integration.js
+```
+
+### 4. Run Development Server
 ```bash
 npm run dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) to see your lead magnet!
+
+## 🚀 Production Deployment
+
+### Automated Deployment (Recommended)
+```bash
+./deploy-production.sh
+```
+
+### Manual Deployment
+1. Configure all environment variables (see `PRODUCTION_ENVIRONMENT_SETUP.md`)
+2. Run `npm run build` to ensure no errors
+3. Test integrations with development server
+4. Deploy to your platform (Vercel, Netlify, etc.)
+5. Set environment variables in deployment platform
+6. Test live deployment
+
+### Production Readiness Checklist
+- [ ] Environment variables configured
+- [ ] HubSpot Private App created and tested
+- [ ] Meta Conversions API token working
+- [ ] All pixel integrations tested
+- [ ] Form submissions working end-to-end
+- [ ] Error handling implemented
+- [ ] Performance optimized
 
 ## 🔧 Configuration
 

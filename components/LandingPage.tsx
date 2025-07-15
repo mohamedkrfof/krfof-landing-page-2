@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { Crown, CheckCircle, Wrench, Shield, Clock, Ruler } from 'lucide-react';
 import Image from 'next/image';
 import QuickLeadForm from './QuickLeadForm';
@@ -21,6 +22,30 @@ const iconMap = {
 };
 
 export default function LandingPage({ config }: LandingPageProps) {
+  // Track ViewContent event on page load
+  useEffect(() => {
+    // Track page view
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      try {
+        (window as any).fbq('track', 'ViewContent', {
+          content_name: `رفوف تخزين معدنية - ${config.arabicName}`,
+          content_category: 'lead_magnet',
+          content_type: 'product_catalog',
+          value: 1,
+          currency: 'SAR',
+          city: config.arabicName,
+          page_type: 'landing_page',
+          event_source_url: window.location.href,
+          referrer: document.referrer || undefined,
+          timestamp: Math.floor(Date.now() / 1000),
+        });
+        console.log('✅ ViewContent event fired for landing page');
+      } catch (err) {
+        console.warn('ViewContent event failed:', err);
+      }
+    }
+  }, [config.arabicName]);
+
   const productImages = [
     { src: '/26262636.jpeg', alt: 'رف تخزين معدني قوي' },
     { src: '/71udlh+9LIL.jpg', alt: 'رف تخزين متعدد الطوابق' },
