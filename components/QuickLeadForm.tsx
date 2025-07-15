@@ -142,8 +142,9 @@ export default function QuickLeadForm() {
           (window as any).fbq('track', 'Lead', {
             content_name: 'رفوف معدنية - طلب عرض أسعار',
             content_category: 'shelving_quote_request',
-            value: parseFloat(data.quantity) || 1,
-            currency: 'SAR',
+            // Option 2: Use proper lead value calculation
+            // value: calculateLeadValue(data.quantity),
+            // currency: 'SAR',
             contents: [{
               id: 'shelving_quote',
               quantity: parseInt(data.quantity) || 1,
