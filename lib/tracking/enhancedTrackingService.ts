@@ -534,17 +534,17 @@ export class EnhancedTrackingService {
   }
 
   private calculateLeadValue(quantity?: string): number {
-    const baseValue = 500; // Base value per shelf in SAR
+    const baseValue = 340; // Base value per shelf in SAR (actual average price)
     
     switch (quantity) {
       case '10+':
-        return baseValue * 15; // Assume 15 shelves average
+        return baseValue * 15; // Assume 15 shelves average = 5,100 SAR
       case '5-10':
-        return baseValue * 7.5; // Assume 7.5 shelves average
+        return baseValue * 7.5; // Assume 7.5 shelves average = 2,550 SAR
       case '1-5':
-        return baseValue * 3; // Assume 3 shelves average
+        return baseValue * 3; // Assume 3 shelves average = 1,020 SAR
       default:
-        return baseValue;
+        return baseValue; // Single shelf = 340 SAR
     }
   }
 

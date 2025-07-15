@@ -35,6 +35,22 @@ export default function QuickLeadForm() {
     setIsMounted(true);
   }, []);
 
+  // Helper function to calculate lead value based on quantity (340 SAR per shelf)
+  const calculateLeadValue = (quantity?: string): number => {
+    const baseValue = 340; // SAR per shelf (actual average price)
+    
+    switch (quantity) {
+      case '10+':
+        return baseValue * 15; // 5,100 SAR
+      case '5-10':
+        return baseValue * 7.5; // 2,550 SAR
+      case '1-5':
+        return baseValue * 3; // 1,020 SAR
+      default:
+        return baseValue; // 340 SAR
+    }
+  };
+
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     setError(null);
@@ -142,8 +158,8 @@ export default function QuickLeadForm() {
           (window as any).fbq('track', 'Lead', {
             content_name: 'رفوف معدنية - طلب عرض أسعار',
             content_category: 'shelving_quote_request',
-            // Option 2: Use proper lead value calculation
-            // value: calculateLeadValue(data.quantity),
+            // Option 2: If you want to add lead values back, uncomment below:
+            // value: calculateLeadValue(data.quantity), // 1-5: 1,020 SAR, 5-10: 2,550 SAR, 10+: 5,100 SAR  
             // currency: 'SAR',
             contents: [{
               id: 'shelving_quote',
