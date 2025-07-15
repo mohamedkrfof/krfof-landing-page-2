@@ -99,7 +99,7 @@ async function handleLegacyTracking(data: Record<string, unknown>) {
 
   const results = await Promise.allSettled([
     // Meta Pixel (Facebook) Conversions API
-    fetch(`https://graph.facebook.com/v18.0/1828066298063484/events`, {
+    fetch(`https://graph.facebook.com/v18.0/1672417903418438/events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -111,7 +111,7 @@ async function testHybridIntegration() {
   console.log('\n5️⃣ Testing Configuration Alignment:');
   
   const expectedPixelIds = {
-    meta: '1828066298063484',
+    meta: '1672417903418438',
     snapchat: '0d75ef7a-3830-4fce-b470-fee261e4b06e',
     tiktok: 'CKHS5RRC77UFTHK7BKJ0',
     google: 'AW-632-400-8142',

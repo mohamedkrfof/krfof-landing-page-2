@@ -566,8 +566,8 @@ export class EnhancedTrackingService {
       platforms: {
               meta: {
         enabled: true,
-        dataset_id: process.env.META_DATASET_ID || '1828066298063484',
-        pixel_id: process.env.META_PIXEL_ID || '1828066298063484',
+        dataset_id: process.env.META_DATASET_ID || '1672417903418438',
+        pixel_id: process.env.META_PIXEL_ID || '1672417903418438',
         api_version: 'v18.0',
           retry_attempts: 3,
           timeout: 30000,
