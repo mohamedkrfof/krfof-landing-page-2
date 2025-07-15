@@ -51,6 +51,20 @@ export default function QuickLeadForm() {
     }
   };
 
+  // Helper function to get average quantity for contents array
+  const getAverageQuantity = (quantity?: string): number => {
+    switch (quantity) {
+      case '10+':
+        return 15; // Assume 15 shelves average
+      case '5-10':
+        return 7.5; // Assume 7.5 shelves average  
+      case '1-5':
+        return 3; // Assume 3 shelves average
+      default:
+        return 1; // Single shelf
+    }
+  };
+
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     setError(null);
@@ -163,8 +177,8 @@ export default function QuickLeadForm() {
             // currency: 'SAR',
             contents: [{
               id: 'shelving_quote',
-              quantity: parseInt(data.quantity) || 1,
-              item_price: 100 // Estimated value
+              quantity: getAverageQuantity(data.quantity),
+              item_price: 340 // Actual shelf price in SAR
             }],
             // Campaign attribution
             utm_source: new URLSearchParams(window.location.search).get('utm_source'),

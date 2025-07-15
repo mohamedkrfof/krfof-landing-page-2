@@ -109,12 +109,11 @@ async function testDualLeadTracking() {
     const browserEventData = {
       content_name: 'رفوف معدنية - طلب عرض أسعار',
       content_category: 'shelving_quote_request',
-      value: parseFloat(testLeadData.quantity) || 1,
-      currency: 'SAR',
+      // value removed - optimize for lead volume
       contents: [{
         id: 'shelving_quote',
-        quantity: parseInt(testLeadData.quantity) || 1,
-        item_price: 100
+        quantity: 7.5, // Average for 5-10 range
+        item_price: 340 // Actual shelf price in SAR
       }],
       utm_source: 'facebook',
       utm_medium: 'cpc',
