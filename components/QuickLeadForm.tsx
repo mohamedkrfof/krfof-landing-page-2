@@ -139,8 +139,8 @@ export default function QuickLeadForm() {
           }),
         }),
 
-        // Zapier webhook (backup integration)
-        fetch('https://hooks.zapier.com/hooks/catch/19651289/2a1vdak/', {
+        // Simple reliable backup system
+        fetch('/api/simple-backup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -148,10 +148,15 @@ export default function QuickLeadForm() {
             leadMagnet: 'طلب عرض أسعار رفوف جديدة',
             source: 'krfof-leadmagnet',
             timestamp: new Date().toISOString(),
+            url: window.location.href,
+            referrer: document.referrer,
+            utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+            utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
+            utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign'),
           }),
         }).catch(err => {
-          console.warn('Zapier webhook failed:', err);
-          return null; // Don't fail the whole form if Zapier fails
+          console.warn('Backup system failed (non-critical):', err);
+          return null; // Don't fail the whole form if backup fails
         }),
 
         // Enhanced tracking for main lead event (25+ parameters)
@@ -185,7 +190,33 @@ export default function QuickLeadForm() {
         }),
       ];
 
-      await Promise.all(promises);
+      const results = await Promise.allSettled(promises);
+      
+      // 📊 Log backup results
+      results.forEach((result, index) => {
+        const endpointNames = ['HubSpot', 'Backup', 'Tracking'];
+        if (result.status === 'fulfilled') {
+          console.log(`✅ ${endpointNames[index]} success:`, result.value?.status);
+        } else {
+          console.warn(`⚠️ ${endpointNames[index]} failed:`, result.reason);
+        }
+      });
+      
+      // 🛡️ EMERGENCY BACKUP - Log to console for manual recovery
+      const emergencyBackup = {
+        timestamp: new Date().toISOString(),
+        lead_data: data,
+        form_url: window.location.href,
+        backup_id: `emergency_${Date.now()}`,
+        utm_params: {
+          source: new URLSearchParams(window.location.search).get('utm_source'),
+          medium: new URLSearchParams(window.location.search).get('utm_medium'),
+          campaign: new URLSearchParams(window.location.search).get('utm_campaign'),
+        }
+      };
+      
+      console.log('🚨 EMERGENCY BACKUP LOG (for manual recovery):', 
+        JSON.stringify(emergencyBackup, null, 2));
       
       // 🎯 DUAL-LAYER LEAD EVENT TRACKING
       // Fire browser-side Meta pixel Lead event (immediate tracking)
