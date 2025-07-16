@@ -10,7 +10,29 @@ import { Loader2 } from 'lucide-react';
 const formSchema = z.object({
   name: z.string().min(2, 'الاسم يجب أن يكون على الأقل حرفين'),
   email: z.string().email('البريد الإلكتروني غير صحيح'),
-  phone: z.string().min(10, 'رقم الهاتف يجب أن يكون على الأقل 10 أرقام'),
+  phone: z.string()
+    .min(10, 'رقم الهاتف يجب أن يكون على الأقل 10 أرقام')
+    .max(15, 'رقم الهاتف لا يجب أن يزيد عن 15 رقم')
+    .refine((phone) => {
+      // Remove all non-digit characters for validation
+      const digitsOnly = phone.replace(/\D/g, '');
+      
+      // Saudi phone number patterns:
+      // 966XXXXXXXXX (12 digits) - with country code
+      // 05XXXXXXXX (10 digits) - local format starting with 05
+      // 5XXXXXXXXX (10 digits) - without leading 0
+      
+      const saudiPatterns = [
+        /^966[5][0-9]{8}$/, // 966 + 5XXXXXXXX (12 digits total)
+        /^966[0][5][0-9]{8}$/, // 966 + 05XXXXXXXX (13 digits total) 
+        /^[0][5][0-9]{8}$/, // 05XXXXXXXX (10 digits total)
+        /^[5][0-9]{8}$/, // 5XXXXXXXX (9 digits total)
+      ];
+      
+      return saudiPatterns.some(pattern => pattern.test(digitsOnly));
+    }, {
+      message: 'رقم الهاتف يجب أن يكون رقم سعودي صحيح (مثال: +966501234567 أو 0501234567)',
+    }),
   quantity: z.string().min(1, 'الكمية المطلوبة مطلوبة'),
 });
 
@@ -94,8 +116,8 @@ export default function QuickLeadForm() {
 
       // Submit to multiple endpoints
       const promises = [
-        // HubSpot integration (primary lead capture)
-        fetch('/api/hubspot/contact', {
+        // HubSpot integration (primary lead capture) - Using Forms API
+        fetch('/api/hubspot/forms-submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -187,7 +209,16 @@ export default function QuickLeadForm() {
             // Lead info (hashed for privacy)
             email: data.email,
             phone: data.phone,
-            city: window.location.pathname.split('/').pop() || 'general',
+            city: (() => {
+              const pathParts = window.location.pathname.split('/').filter(Boolean);
+              // For /landing/cityname, return cityname
+              // For /, try to detect city from IP geolocation or default to 'general'
+              if (pathParts.length >= 2 && pathParts[0] === 'landing') {
+                return pathParts[1]; // riyadh, jeddah, dammam
+              }
+              // For root page, default to 'general' (should be redirected to city-specific page)
+              return 'general';
+            })(),
             form_location: window.location.pathname,
             event_source_url: window.location.href,
             // Timing

@@ -4,9 +4,51 @@ import QuickLeadForm from '@/components/QuickLeadForm';
 import { Award, Clock, Shield, CheckCircle, Star, Phone, MapPin, Truck, Package, Wrench, Crown, AlertTriangle, Ruler, Weight } from 'lucide-react';
 import Image from 'next/image';
 import { useKeenSlider } from 'keen-slider/react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { IPGeolocationService } from '@/lib/ipGeolocation';
 import 'keen-slider/keen-slider.min.css';
 
 export default function HomePage() {
+  const router = useRouter();
+  const [isRedirecting, setIsRedirecting] = useState(true);
+
+  useEffect(() => {
+    // Intelligent city-based redirect
+    const redirectToCity = async () => {
+      try {
+        // Get user's IP and detect city
+        const response = await fetch('/api/geolocation');
+        if (response.ok) {
+          const geoData = await response.json();
+          const city = geoData.city?.toLowerCase();
+          
+          // Map detected cities to landing pages
+          const cityMappings: { [key: string]: string } = {
+            'riyadh': '/landing/riyadh',
+            'الرياض': '/landing/riyadh',
+            'jeddah': '/landing/jeddah',
+            'جدة': '/landing/jeddah',
+            'dammam': '/landing/dammam',
+            'الدمام': '/landing/dammam',
+          };
+          
+          if (city && cityMappings[city]) {
+            console.log(`🌍 Redirecting to ${cityMappings[city]} based on detected city: ${city}`);
+            router.push(cityMappings[city]);
+            return;
+          }
+        }
+      } catch (error) {
+        console.warn('Geolocation redirect failed, showing general page:', error);
+      }
+      
+      // No redirect needed, show general page
+      setIsRedirecting(false);
+    };
+
+    redirectToCity();
+  }, [router]);
   const [sliderRef] = useKeenSlider({
     loop: true,
     mode: 'free',
@@ -29,6 +71,18 @@ export default function HomePage() {
       },
     },
   });
+
+  // Show loading state while checking for redirect
+  if (isRedirecting) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-light-gold via-white to-cream-gold flex items-center justify-center" dir="rtl">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-metallic-gold mx-auto mb-4"></div>
+          <p className="text-traditional-brown font-semibold">جاري تحديد موقعك...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-light-gold via-white to-cream-gold" dir="rtl">
