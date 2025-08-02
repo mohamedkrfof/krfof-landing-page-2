@@ -58,7 +58,6 @@ export default function InteractivePricingSection({ className = '', onQuantityCh
           step={1}
           onChange={(e) => handleQuantityChange(+e.target.value)}
           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-          dir="rtl"
           style={{
             background: `linear-gradient(to left, #3B82F6 0%, #3B82F6 ${((quantity - 5) / (50 - 5)) * 100}%, #e5e7eb ${((quantity - 5) / (50 - 5)) * 100}%, #e5e7eb 100%)`
           }}
