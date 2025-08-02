@@ -349,23 +349,16 @@ export default function QuickLeadForm() {
 
 
   return (
-    <MagicCard 
-      className="w-full max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 scroll-mt-8"
-      gradientFrom="#D4AF37"
-      gradientTo="#B8860B"
-      gradientColor="rgba(212, 175, 55, 0.1)"
-      gradientOpacity={0.6}
-    >
-      <div id="lead-form">
-        {/* Header Section */}
-        <div className="bg-gradient-to-r from-metallic-gold to-old-gold p-6 text-center">
-          <h3 className="text-2xl font-bold text-white mb-2">
-            🛒 إتمام الطلب
-          </h3>
-          <p className="text-white/90 text-sm">
-            أدخل بياناتك لإتمام عملية الشراء
-          </p>
-        </div>
+    <div id="lead-form" className="w-full max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 scroll-mt-8">
+      {/* Header Section */}
+      <div className="bg-gradient-to-r from-metallic-gold to-old-gold p-6 text-center">
+        <h3 className="text-2xl font-bold text-white mb-2">
+          🛒 إتمام الطلب
+        </h3>
+        <p className="text-white/90 text-sm">
+          أدخل بياناتك لإتمام عملية الشراء
+        </p>
+      </div>
 
       {/* Pricing Summary Card */}
       <div className="p-6 bg-gray-50 border-b border-gray-100">
@@ -383,13 +376,7 @@ export default function QuickLeadForm() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
         {/* Customer Information Section */}
-        <MagicCard 
-          className="bg-white border border-gray-200 rounded-2xl p-6"
-          gradientFrom="#CD853F"
-          gradientTo="#8B4513"
-          gradientColor="rgba(205, 133, 63, 0.08)"
-          gradientOpacity={0.4}
-        >
+        <div className="bg-white border border-gray-200 rounded-2xl p-6">
           <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
             👤 معلومات العميل
           </h4>
@@ -442,16 +429,10 @@ export default function QuickLeadForm() {
               </div>
             </div>
           </div>
-        </MagicCard>
+        </div>
 
         {/* Address Information Section */}
-        <MagicCard 
-          className="bg-white border border-gray-200 rounded-2xl p-6"
-          gradientFrom="#DAA520"
-          gradientTo="#B8860B"
-          gradientColor="rgba(218, 165, 32, 0.08)"
-          gradientOpacity={0.4}
-        >
+        <div className="bg-white border border-gray-200 rounded-2xl p-6">
           <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
             📍 معلومات العنوان
           </h4>
@@ -540,16 +521,10 @@ export default function QuickLeadForm() {
               </div>
             </div>
           </div>
-        </MagicCard>
+        </div>
 
         {/* Order Summary Section */}
-        <MagicCard 
-          className="bg-white border border-gray-200 rounded-2xl p-6"
-          gradientFrom="#FFD700"
-          gradientTo="#FFA500"
-          gradientColor="rgba(255, 215, 0, 0.08)"
-          gradientOpacity={0.4}
-        >
+        <div className="bg-white border border-gray-200 rounded-2xl p-6">
           <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
             📦 ملخص الطلب
           </h4>
@@ -576,7 +551,7 @@ export default function QuickLeadForm() {
               value={selectedQuantity.toString()}
             />
           </div>
-        </MagicCard>
+        </div>
 
 
 
@@ -617,7 +592,6 @@ export default function QuickLeadForm() {
           بالنقر على &quot;احصل على عرض أسعار فوري&quot; فإنك توافق على سياسة الخصوصية وشروط الاستخدام
         </p>
       </form>
-      </div>
-    </MagicCard>
+    </div>
   );
 }
