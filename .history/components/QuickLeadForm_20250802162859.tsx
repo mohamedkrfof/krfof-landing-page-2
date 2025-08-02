@@ -6,11 +6,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Loader2 } from 'lucide-react';
-import InteractivePricingSection from './shared/InteractivePricingSection';
+import PricingSection from './shared/PricingSection';
 
 const formSchema = z.object({
   name: z.string().min(2, 'الاسم يجب أن يكون على الأقل حرفين'),
-  email: z.string().email('البريد الإلكتروني غير صحيح').optional().or(z.literal('')),
+  email: z.string().email('البريد الإلكتروني غير صحيح'),
   phone: z.string()
     .min(10, 'رقم الهاتف يجب أن يكون على الأقل 10 أرقام')
     .max(15, 'رقم الهاتف لا يجب أن يزيد عن 15 رقم')
@@ -35,11 +35,6 @@ const formSchema = z.object({
       message: 'رقم الهاتف يجب أن يكون رقم سعودي صحيح (مثال: +966501234567 أو 0501234567)',
     }),
   quantity: z.string().min(1, 'الكمية المطلوبة مطلوبة'),
-  city: z.string().min(1, 'المدينة مطلوبة'),
-  neighborhood: z.string().min(1, 'الحي مطلوب'),
-  street: z.string().min(1, 'الشارع مطلوب'),
-  houseDescription: z.string().optional(),
-  postalCode: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -49,7 +44,6 @@ export default function QuickLeadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isMounted, setIsMounted] = useState(false);
-  const [selectedQuantity, setSelectedQuantity] = useState(5);
 
   const {
     register,
@@ -58,9 +52,6 @@ export default function QuickLeadForm() {
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      city: 'الرياض',
-    },
   });
 
   useEffect(() => {
@@ -361,10 +352,7 @@ export default function QuickLeadForm() {
 
       {/* Pricing Summary Card */}
       <div className="p-6 bg-gray-50 border-b border-gray-100">
-        <InteractivePricingSection 
-          className="" 
-          onQuantityChange={setSelectedQuantity}
-        />
+        <PricingSection className="" />
       </div>
 
       {error && (
@@ -374,218 +362,114 @@ export default function QuickLeadForm() {
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
-        {/* Customer Information Section */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-            👤 معلومات العميل
-          </h4>
-          
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                الاسم الكامل *
-              </label>
-              <input
-                {...register('name')}
-                type="text"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
-                placeholder="أدخل اسمك الكامل"
-              />
-              {errors.name && (
-                <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
-              )}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                  رقم الهاتف *
-                </label>
-                <input
-                  {...register('phone')}
-                  type="tel"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
-                  placeholder="+966 5X XXX XXXX"
-                />
-                {errors.phone && (
-                  <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
-                )}
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  البريد الإلكتروني (اختياري)
-                </label>
-                <input
-                  {...register('email')}
-                  type="email"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
-                  placeholder="example@company.com"
-                />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Address Information Section */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-            📍 معلومات العنوان
-          </h4>
-          
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-2">
-                  اختر المدينة *
-                </label>
-                <select
-                  {...register('city')}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
-                >
-                  <option value="">اختر المدينة</option>
-                  <option value="الرياض">الرياض</option>
-                  <option value="جدة">جدة</option>
-                  <option value="الدمام">الدمام</option>
-                  <option value="مكة المكرمة">مكة المكرمة</option>
-                  <option value="المدينة المنورة">المدينة المنورة</option>
-                  <option value="الطائف">الطائف</option>
-                  <option value="تبوك">تبوك</option>
-                  <option value="بريدة">بريدة</option>
-                  <option value="خميس مشيط">خميس مشيط</option>
-                  <option value="حائل">حائل</option>
-                </select>
-                {errors.city && (
-                  <p className="mt-1 text-sm text-red-600">{errors.city.message}</p>
-                )}
-              </div>
-
-              <div>
-                <label htmlFor="neighborhood" className="block text-sm font-medium text-gray-700 mb-2">
-                  اختر الحي *
-                </label>
-                <input
-                  {...register('neighborhood')}
-                  type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
-                  placeholder="ابحث عن الحي"
-                />
-                {errors.neighborhood && (
-                  <p className="mt-1 text-sm text-red-600">{errors.neighborhood.message}</p>
-                )}
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="street" className="block text-sm font-medium text-gray-700 mb-2">
-                الشارع *
-              </label>
-              <input
-                {...register('street')}
-                type="text"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
-                placeholder="اختبار"
-              />
-              {errors.street && (
-                <p className="mt-1 text-sm text-red-600">{errors.street.message}</p>
-              )}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="houseDescription" className="block text-sm font-medium text-gray-700 mb-2">
-                  وصف البيت (اختياري)
-                </label>
-                <textarea
-                  {...register('houseDescription')}
-                  rows={3}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white resize-none"
-                  placeholder="وصف البيت"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700 mb-2">
-                  الرمز البريدي (اختياري)
-                </label>
-                <input
-                  {...register('postalCode')}
-                  type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
-                  placeholder="الرمز البريدي"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Order Summary Section */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-            📦 ملخص الطلب
-          </h4>
-          
-          <div className="space-y-4">
-            <div className="flex justify-between items-center py-3 border-b border-gray-100">
-              <span className="text-gray-600">عدد الرفوف:</span>
-              <span className="font-semibold text-gray-800">{selectedQuantity} رف</span>
-            </div>
-            
-            <div className="flex justify-between items-center py-3 border-b border-gray-100">
-              <span className="text-gray-600">سعر الرف الواحد:</span>
-              <span className="font-semibold text-gray-800">325 ريال</span>
-            </div>
-            
-            <div className="flex justify-between items-center py-3">
-              <span className="text-lg font-semibold text-gray-800">المجموع الكلي:</span>
-              <span className="text-2xl font-bold text-blue-600">{(selectedQuantity * 325).toLocaleString()} ريال</span>
-            </div>
-            
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label htmlFor="name" className="form-label block text-traditional-brown mb-2">
+              الاسم الكامل *
+            </label>
             <input
-              type="hidden"
-              {...register('quantity')}
-              value={selectedQuantity.toString()}
+              {...register('name')}
+              type="text"
+              className="form-input w-full p-4 border-2 border-light-brown rounded-xl focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-colors"
+              placeholder="أدخل اسمك الكامل"
             />
-          </div>
-        </div>
-
-
-
-        {/* Complete Order Button */}
-        <div className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-2xl p-6">
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-gradient-to-r from-metallic-gold to-old-gold hover:from-vegas-gold hover:to-metallic-gold text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:scale-[1.02] text-lg"
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="animate-spin w-6 h-6 ml-3" />
-                جاري المعالجة...
-              </>
-            ) : (
-              <>
-                <span className="ml-2">💳</span>
-                إتمام الطلب والحصول على عرض السعر
-              </>
+            {errors.name && (
+              <p className="form-error mt-2 text-red-600">{errors.name.message}</p>
             )}
-          </button>
-          
-          <div className="mt-4 flex items-center justify-center space-x-4 text-xs text-gray-500">
-            <span className="flex items-center">
-              🔒 آمن ومحمي
-            </span>
-            <span className="flex items-center">
-              ⚡ استجابة فورية
-            </span>
-            <span className="flex items-center">
-              📞 دعم مجاني
-            </span>
+          </div>
+
+          <div>
+            <label htmlFor="phone" className="form-label block text-traditional-brown mb-2">
+              رقم الهاتف *
+            </label>
+            <input
+              {...register('phone')}
+              type="tel"
+              className="form-input w-full p-4 border-2 border-light-brown rounded-xl focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-colors"
+              placeholder="+966 5X XXX XXXX"
+            />
+            {errors.phone && (
+              <p className="form-error mt-2 text-red-600">{errors.phone.message}</p>
+            )}
           </div>
         </div>
+
+        <div>
+          <label htmlFor="email" className="form-label block text-traditional-brown mb-2">
+            البريد الإلكتروني *
+          </label>
+          <input
+            {...register('email')}
+            type="email"
+            className="form-input w-full p-4 border-2 border-light-brown rounded-xl focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-colors"
+            placeholder="example@company.com"
+          />
+          {errors.email && (
+            <p className="form-error mt-2 text-red-600">{errors.email.message}</p>
+          )}
+        </div>
+
+
+
+        <div>
+          <label className="form-label block text-traditional-brown mb-4">
+            الكمية المطلوبة تقريباً *
+          </label>
+          <div className="grid grid-cols-3 gap-2 md:gap-3">
+            <label className="flex items-center p-2 md:p-4 border-2 border-light-brown rounded-xl cursor-pointer hover:border-metallic-gold transition-colors">
+              <input
+                type="radio"
+                {...register('quantity')}
+                value="1-5"
+                className="w-4 h-4 md:w-5 md:h-5 text-metallic-gold focus:ring-metallic-gold focus:ring-2"
+              />
+              <span className="mr-2 md:mr-3 text-small md:text-body font-medium text-traditional-brown">1-5 رفوف</span>
+            </label>
+            
+            <label className="flex items-center p-2 md:p-4 border-2 border-light-brown rounded-xl cursor-pointer hover:border-metallic-gold transition-colors">
+              <input
+                type="radio"
+                {...register('quantity')}
+                value="5-10"
+                className="w-4 h-4 md:w-5 md:h-5 text-metallic-gold focus:ring-metallic-gold focus:ring-2"
+              />
+              <span className="mr-2 md:mr-3 text-small md:text-body font-medium text-traditional-brown">5-10 رفوف</span>
+            </label>
+            
+            <label className="flex items-center p-2 md:p-4 border-2 border-light-brown rounded-xl cursor-pointer hover:border-metallic-gold transition-colors">
+              <input
+                type="radio"
+                {...register('quantity')}
+                value="10+"
+                className="w-4 h-4 md:w-5 md:h-5 text-metallic-gold focus:ring-metallic-gold focus:ring-2"
+              />
+              <span className="mr-2 md:mr-3 text-small md:text-body font-medium text-traditional-brown">أكثر من 10 رفوف</span>
+            </label>
+          </div>
+          {errors.quantity && (
+            <p className="form-error mt-2 text-red-600">{errors.quantity.message}</p>
+          )}
+        </div>
+
+        {/* Pricing Section */}
+        <div className="my-6">
+          <PricingSection className="" />
+        </div>
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="btn-text w-full bg-gradient-to-r from-metallic-gold to-old-gold hover:from-vegas-gold hover:to-metallic-gold text-white font-bold py-4 px-8 rounded-xl transition duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 className="animate-spin w-6 h-6 ml-3" />
+              جاري الإرسال...
+            </>
+          ) : (
+            '🚀 احصل على عرض أسعار فوري'
+          )}
+        </button>
 
         <p className="text-caption text-traditional-brown text-center mt-4">
           بالنقر على &quot;احصل على عرض أسعار فوري&quot; فإنك توافق على سياسة الخصوصية وشروط الاستخدام

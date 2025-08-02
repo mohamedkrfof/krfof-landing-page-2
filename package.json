@@ -14,10 +14,12 @@
     "clsx": "^2.1.1",
     "keen-slider": "^6.8.6",
     "lucide-react": "^0.518.0",
+    "motion": "^12.23.12",
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.58.1",
+    "react-use-measure": "^2.1.7",
     "tailwind-merge": "^3.3.1",
     "zod": "^3.25.67"
   },

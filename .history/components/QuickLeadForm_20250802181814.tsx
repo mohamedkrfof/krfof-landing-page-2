@@ -49,7 +49,6 @@ export default function QuickLeadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isMounted, setIsMounted] = useState(false);
-  const [selectedQuantity, setSelectedQuantity] = useState(5);
 
   const {
     register,
@@ -361,10 +360,7 @@ export default function QuickLeadForm() {
 
       {/* Pricing Summary Card */}
       <div className="p-6 bg-gray-50 border-b border-gray-100">
-        <InteractivePricingSection 
-          className="" 
-          onQuantityChange={setSelectedQuantity}
-        />
+        <InteractivePricingSection className="" />
       </div>
 
       {error && (
@@ -522,33 +518,59 @@ export default function QuickLeadForm() {
           </div>
         </div>
 
-        {/* Order Summary Section */}
+        {/* Order Details Section */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6">
           <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-            📦 ملخص الطلب
+            📦 تفاصيل الطلب
           </h4>
           
-          <div className="space-y-4">
-            <div className="flex justify-between items-center py-3 border-b border-gray-100">
-              <span className="text-gray-600">عدد الرفوف:</span>
-              <span className="font-semibold text-gray-800">{selectedQuantity} رف</span>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-3">
+              الكمية المطلوبة *
+            </label>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <label className="relative flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-metallic-gold hover:bg-gray-50 transition-all duration-200 group">
+                <input
+                  type="radio"
+                  {...register('quantity')}
+                  value="1-5"
+                  className="w-5 h-5 text-metallic-gold focus:ring-metallic-gold focus:ring-2 border-gray-300"
+                />
+                <div className="mr-3">
+                  <span className="block text-sm font-medium text-gray-800 group-hover:text-metallic-gold">1-5 رفوف</span>
+                  <span className="block text-xs text-gray-500">للمشاريع الصغيرة</span>
+                </div>
+              </label>
+              
+              <label className="relative flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-metallic-gold hover:bg-gray-50 transition-all duration-200 group">
+                <input
+                  type="radio"
+                  {...register('quantity')}
+                  value="5-10"
+                  className="w-5 h-5 text-metallic-gold focus:ring-metallic-gold focus:ring-2 border-gray-300"
+                />
+                <div className="mr-3">
+                  <span className="block text-sm font-medium text-gray-800 group-hover:text-metallic-gold">5-10 رفوف</span>
+                  <span className="block text-xs text-gray-500">للمشاريع المتوسطة</span>
+                </div>
+              </label>
+              
+              <label className="relative flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-metallic-gold hover:bg-gray-50 transition-all duration-200 group">
+                <input
+                  type="radio"
+                  {...register('quantity')}
+                  value="10+"
+                  className="w-5 h-5 text-metallic-gold focus:ring-metallic-gold focus:ring-2 border-gray-300"
+                />
+                <div className="mr-3">
+                  <span className="block text-sm font-medium text-gray-800 group-hover:text-metallic-gold">أكثر من 10 رفوف</span>
+                  <span className="block text-xs text-gray-500">للمشاريع الكبيرة</span>
+                </div>
+              </label>
             </div>
-            
-            <div className="flex justify-between items-center py-3 border-b border-gray-100">
-              <span className="text-gray-600">سعر الرف الواحد:</span>
-              <span className="font-semibold text-gray-800">325 ريال</span>
-            </div>
-            
-            <div className="flex justify-between items-center py-3">
-              <span className="text-lg font-semibold text-gray-800">المجموع الكلي:</span>
-              <span className="text-2xl font-bold text-blue-600">{(selectedQuantity * 325).toLocaleString()} ريال</span>
-            </div>
-            
-            <input
-              type="hidden"
-              {...register('quantity')}
-              value={selectedQuantity.toString()}
-            />
+            {errors.quantity && (
+              <p className="mt-2 text-sm text-red-600">{errors.quantity.message}</p>
+            )}
           </div>
         </div>
 

@@ -49,7 +49,6 @@ export default function QuickLeadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isMounted, setIsMounted] = useState(false);
-  const [selectedQuantity, setSelectedQuantity] = useState(5);
 
   const {
     register,
@@ -361,10 +360,7 @@ export default function QuickLeadForm() {
 
       {/* Pricing Summary Card */}
       <div className="p-6 bg-gray-50 border-b border-gray-100">
-        <InteractivePricingSection 
-          className="" 
-          onQuantityChange={setSelectedQuantity}
-        />
+        <InteractivePricingSection className="" />
       </div>
 
       {error && (

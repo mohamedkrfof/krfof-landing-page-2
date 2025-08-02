@@ -8,6 +8,7 @@ import Header from './shared/Header';
 import NoticeBanner from './shared/NoticeBanner';
 import BenefitsGrid from './shared/BenefitsGrid';
 import ProductSpecs from './shared/ProductSpecs';
+import PricingSection from './shared/PricingSection';
 import { CityConfig } from '@/lib/types';
 
 interface LandingPageProps {
@@ -99,6 +100,11 @@ export default function LandingPage({ config }: LandingPageProps) {
             </div>
 
             <BenefitsGrid benefits={config.benefits} />
+          </div>
+
+          {/* Pricing Section */}
+          <div className="mb-8 sm:mb-12 lg:mb-16">
+            <PricingSection />
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">

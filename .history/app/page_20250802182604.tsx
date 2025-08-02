@@ -375,8 +375,8 @@ export default function HomePage() {
                   استشارات مجانية
                 </li>
                 <li className="flex items-center">
-                  <Shield className="w-4 h-4 ml-2 text-classic-gold" />
-                  ضمان شامل لمدة عام كامل
+                  <CheckCircle className="w-4 h-4 ml-2 text-classic-gold" />
+                  ضمان شامل
                 </li>
               </ul>
             </div>

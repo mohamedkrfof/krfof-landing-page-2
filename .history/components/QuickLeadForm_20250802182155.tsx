@@ -361,10 +361,7 @@ export default function QuickLeadForm() {
 
       {/* Pricing Summary Card */}
       <div className="p-6 bg-gray-50 border-b border-gray-100">
-        <InteractivePricingSection 
-          className="" 
-          onQuantityChange={setSelectedQuantity}
-        />
+        <InteractivePricingSection className="" />
       </div>
 
       {error && (

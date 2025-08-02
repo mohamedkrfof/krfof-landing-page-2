@@ -10,7 +10,7 @@ import InteractivePricingSection from './shared/InteractivePricingSection';
 
 const formSchema = z.object({
   name: z.string().min(2, 'الاسم يجب أن يكون على الأقل حرفين'),
-  email: z.string().email('البريد الإلكتروني غير صحيح').optional().or(z.literal('')),
+  email: z.string().email('البريد الإلكتروني غير صحيح'),
   phone: z.string()
     .min(10, 'رقم الهاتف يجب أن يكون على الأقل 10 أرقام')
     .max(15, 'رقم الهاتف لا يجب أن يزيد عن 15 رقم')
@@ -35,11 +35,6 @@ const formSchema = z.object({
       message: 'رقم الهاتف يجب أن يكون رقم سعودي صحيح (مثال: +966501234567 أو 0501234567)',
     }),
   quantity: z.string().min(1, 'الكمية المطلوبة مطلوبة'),
-  city: z.string().min(1, 'المدينة مطلوبة'),
-  neighborhood: z.string().min(1, 'الحي مطلوب'),
-  street: z.string().min(1, 'الشارع مطلوب'),
-  houseDescription: z.string().optional(),
-  postalCode: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -49,7 +44,6 @@ export default function QuickLeadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isMounted, setIsMounted] = useState(false);
-  const [selectedQuantity, setSelectedQuantity] = useState(5);
 
   const {
     register,
@@ -58,9 +52,6 @@ export default function QuickLeadForm() {
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      city: 'الرياض',
-    },
   });
 
   useEffect(() => {
@@ -361,10 +352,7 @@ export default function QuickLeadForm() {
 
       {/* Pricing Summary Card */}
       <div className="p-6 bg-gray-50 border-b border-gray-100">
-        <InteractivePricingSection 
-          className="" 
-          onQuantityChange={setSelectedQuantity}
-        />
+        <PricingSection className="" />
       </div>
 
       {error && (
@@ -414,7 +402,7 @@ export default function QuickLeadForm() {
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  البريد الإلكتروني (اختياري)
+                  البريد الإلكتروني *
                 </label>
                 <input
                   {...register('email')}
@@ -430,129 +418,66 @@ export default function QuickLeadForm() {
           </div>
         </div>
 
-        {/* Address Information Section */}
+
+
+        {/* Order Details Section */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6">
           <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-            📍 معلومات العنوان
+            📦 تفاصيل الطلب
           </h4>
           
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-2">
-                  اختر المدينة *
-                </label>
-                <select
-                  {...register('city')}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
-                >
-                  <option value="">اختر المدينة</option>
-                  <option value="الرياض">الرياض</option>
-                  <option value="جدة">جدة</option>
-                  <option value="الدمام">الدمام</option>
-                  <option value="مكة المكرمة">مكة المكرمة</option>
-                  <option value="المدينة المنورة">المدينة المنورة</option>
-                  <option value="الطائف">الطائف</option>
-                  <option value="تبوك">تبوك</option>
-                  <option value="بريدة">بريدة</option>
-                  <option value="خميس مشيط">خميس مشيط</option>
-                  <option value="حائل">حائل</option>
-                </select>
-                {errors.city && (
-                  <p className="mt-1 text-sm text-red-600">{errors.city.message}</p>
-                )}
-              </div>
-
-              <div>
-                <label htmlFor="neighborhood" className="block text-sm font-medium text-gray-700 mb-2">
-                  اختر الحي *
-                </label>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-3">
+              الكمية المطلوبة *
+            </label>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <label className="relative flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-metallic-gold hover:bg-gray-50 transition-all duration-200 group">
                 <input
-                  {...register('neighborhood')}
-                  type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
-                  placeholder="ابحث عن الحي"
+                  type="radio"
+                  {...register('quantity')}
+                  value="1-5"
+                  className="w-5 h-5 text-metallic-gold focus:ring-metallic-gold focus:ring-2 border-gray-300"
                 />
-                {errors.neighborhood && (
-                  <p className="mt-1 text-sm text-red-600">{errors.neighborhood.message}</p>
-                )}
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="street" className="block text-sm font-medium text-gray-700 mb-2">
-                الشارع *
+                <div className="mr-3">
+                  <span className="block text-sm font-medium text-gray-800 group-hover:text-metallic-gold">1-5 رفوف</span>
+                  <span className="block text-xs text-gray-500">للمشاريع الصغيرة</span>
+                </div>
               </label>
-              <input
-                {...register('street')}
-                type="text"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
-                placeholder="اختبار"
-              />
-              {errors.street && (
-                <p className="mt-1 text-sm text-red-600">{errors.street.message}</p>
-              )}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="houseDescription" className="block text-sm font-medium text-gray-700 mb-2">
-                  وصف البيت (اختياري)
-                </label>
-                <textarea
-                  {...register('houseDescription')}
-                  rows={3}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white resize-none"
-                  placeholder="وصف البيت"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700 mb-2">
-                  الرمز البريدي (اختياري)
-                </label>
+              
+              <label className="relative flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-metallic-gold hover:bg-gray-50 transition-all duration-200 group">
                 <input
-                  {...register('postalCode')}
-                  type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
-                  placeholder="الرمز البريدي"
+                  type="radio"
+                  {...register('quantity')}
+                  value="5-10"
+                  className="w-5 h-5 text-metallic-gold focus:ring-metallic-gold focus:ring-2 border-gray-300"
                 />
-              </div>
+                <div className="mr-3">
+                  <span className="block text-sm font-medium text-gray-800 group-hover:text-metallic-gold">5-10 رفوف</span>
+                  <span className="block text-xs text-gray-500">للمشاريع المتوسطة</span>
+                </div>
+              </label>
+              
+              <label className="relative flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-metallic-gold hover:bg-gray-50 transition-all duration-200 group">
+                <input
+                  type="radio"
+                  {...register('quantity')}
+                  value="10+"
+                  className="w-5 h-5 text-metallic-gold focus:ring-metallic-gold focus:ring-2 border-gray-300"
+                />
+                <div className="mr-3">
+                  <span className="block text-sm font-medium text-gray-800 group-hover:text-metallic-gold">أكثر من 10 رفوف</span>
+                  <span className="block text-xs text-gray-500">للمشاريع الكبيرة</span>
+                </div>
+              </label>
             </div>
+            {errors.quantity && (
+              <p className="mt-2 text-sm text-red-600">{errors.quantity.message}</p>
+            )}
           </div>
         </div>
 
-        {/* Order Summary Section */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-            📦 ملخص الطلب
-          </h4>
-          
-          <div className="space-y-4">
-            <div className="flex justify-between items-center py-3 border-b border-gray-100">
-              <span className="text-gray-600">عدد الرفوف:</span>
-              <span className="font-semibold text-gray-800">{selectedQuantity} رف</span>
-            </div>
-            
-            <div className="flex justify-between items-center py-3 border-b border-gray-100">
-              <span className="text-gray-600">سعر الرف الواحد:</span>
-              <span className="font-semibold text-gray-800">325 ريال</span>
-            </div>
-            
-            <div className="flex justify-between items-center py-3">
-              <span className="text-lg font-semibold text-gray-800">المجموع الكلي:</span>
-              <span className="text-2xl font-bold text-blue-600">{(selectedQuantity * 325).toLocaleString()} ريال</span>
-            </div>
-            
-            <input
-              type="hidden"
-              {...register('quantity')}
-              value={selectedQuantity.toString()}
-            />
-          </div>
-        </div>
-
-
+        {/* Interactive Pricing Summary */}
+        <InteractivePricingSection className="" />
 
         {/* Complete Order Button */}
         <div className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-2xl p-6">
