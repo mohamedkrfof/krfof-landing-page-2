@@ -186,49 +186,39 @@ export default function HomePage() {
             </FadeIn>
 
             {/* Key Benefits - Professional Gold/Brown Combinations */}
-            <StaggerContainer staggerDelay={0.15} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12 max-w-5xl mx-auto">
-              <StaggerItem>
-                <Shimmer className="bg-gradient-to-br from-light-gold to-cream-gold p-4 sm:p-6 rounded-2xl shadow-lg border border-metallic-gold hover:shadow-xl transition-shadow duration-300">
-                  <div className="w-12 h-12 bg-classic-gold rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Crown className="w-6 h-6 text-chocolate-brown" />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">جودة استثنائية</h3>
-                  <p className="text-sm sm:text-base text-traditional-brown">مواد عالية الجودة مقاومة للصدأ والتآكل</p>
-                </Shimmer>
-              </StaggerItem>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12 max-w-5xl mx-auto">
+              <div className="bg-gradient-to-br from-light-gold to-cream-gold p-4 sm:p-6 rounded-2xl shadow-lg border border-metallic-gold">
+                <div className="w-12 h-12 bg-classic-gold rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Crown className="w-6 h-6 text-chocolate-brown" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">جودة استثنائية</h3>
+                <p className="text-sm sm:text-base text-traditional-brown">مواد عالية الجودة مقاومة للصدأ والتآكل</p>
+              </div>
               
-              <StaggerItem>
-                <Shimmer className="bg-gradient-to-br from-cream-gold to-light-brown p-4 sm:p-6 rounded-2xl shadow-lg border border-old-gold hover:shadow-xl transition-shadow duration-300">
-                  <div className="w-12 h-12 bg-metallic-gold rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Truck className="w-6 h-6 text-chocolate-brown" />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">توصيل مجاني</h3>
-                  <p className="text-sm sm:text-base text-traditional-brown">توصيل مجاني للرياض وجدة والدمام</p>
-                </Shimmer>
-              </StaggerItem>
+              <div className="bg-gradient-to-br from-cream-gold to-light-brown p-4 sm:p-6 rounded-2xl shadow-lg border border-old-gold">
+                <div className="w-12 h-12 bg-metallic-gold rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Truck className="w-6 h-6 text-chocolate-brown" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">توصيل مجاني</h3>
+                <p className="text-sm sm:text-base text-traditional-brown">توصيل مجاني للرياض وجدة والدمام</p>
+              </div>
               
-              <StaggerItem>
-                <Shimmer className="bg-gradient-to-br from-light-brown to-cream-gold p-4 sm:p-6 rounded-2xl shadow-lg border border-vegas-gold hover:shadow-xl transition-shadow duration-300">
-                  <div className="w-12 h-12 bg-vegas-gold rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Package className="w-6 h-6 text-chocolate-brown" />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">كميات كبيرة</h3>
-                  <p className="text-sm sm:text-base text-traditional-brown">مخزون كبير مع خصومات للكميات</p>
-                </Shimmer>
-              </StaggerItem>
+              <div className="bg-gradient-to-br from-light-brown to-cream-gold p-4 sm:p-6 rounded-2xl shadow-lg border border-vegas-gold">
+                <div className="w-12 h-12 bg-vegas-gold rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Package className="w-6 h-6 text-chocolate-brown" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">كميات كبيرة</h3>
+                <p className="text-sm sm:text-base text-traditional-brown">مخزون كبير مع خصومات للكميات</p>
+              </div>
               
-              <StaggerItem>
-                <Pulse color="rgba(34, 197, 94, 0.3)">
-                  <Shimmer className="bg-gradient-to-br from-green-100 to-green-200 p-4 sm:p-6 rounded-2xl shadow-lg border border-green-400 hover:shadow-xl transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <Shield className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-bold text-green-800 mb-2">ضمان عام كامل</h3>
-                    <p className="text-sm sm:text-base text-green-700">ضمان شامل لمدة سنة كاملة على جميع المنتجات</p>
-                  </Shimmer>
-                </Pulse>
-              </StaggerItem>
-            </StaggerContainer>
+              <div className="bg-gradient-to-br from-green-100 to-green-200 p-4 sm:p-6 rounded-2xl shadow-lg border border-green-400">
+                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Shield className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-green-800 mb-2">ضمان عام كامل</h3>
+                <p className="text-sm sm:text-base text-green-700">ضمان شامل لمدة سنة كاملة على جميع المنتجات</p>
+              </div>
+            </div>
 
 
           </div>

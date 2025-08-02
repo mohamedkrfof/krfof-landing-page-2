@@ -137,98 +137,70 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
             {/* Main Headline - First Thing Clients See */}
-            <FadeIn delay={0.4}>
-              <Shimmer className="inline-block mb-6 sm:mb-8">
-                <div className="inline-flex items-center bg-gradient-to-r from-cream-gold to-light-brown text-chocolate-brown px-4 py-2 rounded-full text-sm font-semibold shadow-sm">
-                  <Crown className="w-4 h-4 ml-2" />
-                  الرفوف الجديدة عالية الجودة - لا نتعامل مع المستعملة
-                </div>
-              </Shimmer>
-            </FadeIn>
+            <div className="inline-flex items-center bg-gradient-to-r from-cream-gold to-light-brown text-chocolate-brown px-4 py-2 rounded-full text-sm font-semibold mb-6 sm:mb-8 shadow-sm">
+              <Crown className="w-4 h-4 ml-2" />
+              الرفوف الجديدة عالية الجودة - لا نتعامل مع المستعملة
+            </div>
             
-            <FadeIn delay={0.6}>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 sm:mb-8 leading-tight">
-                <GradientText colors={['#8B4513', '#A0522D', '#CD853F', '#8B4513']}>
-                  رفوف التخزين المثالية للمؤسسات والشركات
-                </GradientText>
-                <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2">
-                  <GradientText colors={['#FFD700', '#FFA500', '#FF8C00', '#FFD700']}>
-                    بجودة استثنائية
-                  </GradientText>
-                </span>
-              </h1>
-            </FadeIn>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-chocolate-brown via-traditional-brown to-chocolate-brown mb-6 sm:mb-8 leading-tight">
+              رفوف التخزين المثالية للمؤسسات والشركات
+              <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-2 bg-gradient-to-r from-metallic-gold to-old-gold bg-clip-text text-transparent">
+                بجودة استثنائية
+              </span>
+            </h1>
             
-            <FadeIn delay={0.8}>
-              <p className="text-xl sm:text-2xl md:text-3xl text-traditional-brown mb-8 sm:mb-12 leading-relaxed max-w-4xl mx-auto font-medium">
-                تتحمل حتى 200 كيلو للرف الواحد، مواد مقاومة للصدأ والتآكل
-                <span className="block text-lg sm:text-xl md:text-2xl text-warm-brown mt-2 font-semibold">
-                    توصيل مجاني للرياض وجدة والدمام، كميات كبيرة مع خصومات وضمان لمدة عام كامل
-                </span>
-              </p>
-            </FadeIn>
+            <p className="text-xl sm:text-2xl md:text-3xl text-traditional-brown mb-8 sm:mb-12 leading-relaxed max-w-4xl mx-auto font-medium">
+              تتحمل حتى 200 كيلو للرف الواحد، مواد مقاومة للصدأ والتآكل
+              <span className="block text-lg sm:text-xl md:text-2xl text-warm-brown mt-2 font-semibold">
+                  توصيل مجاني للرياض وجدة والدمام، كميات كبيرة مع خصومات وضمان لمدة عام كامل
+              </span>
+            </p>
 
             {/* Product Hero Image */}
-            <FadeIn delay={1.0}>
-              <div className="mb-8 sm:mb-12">
-                <div className="max-w-2xl mx-auto">
-                  <Floating duration={4} intensity={8}>
-                    <Shimmer>
-                      <img
-                        src="/a6t9c2rh0w6b1mmzirsbg9q80ikwli1i.jpg"
-                        alt="رفوف معدنية احترافية عالية الجودة للمستودعات والمخازن"
-                        className="w-full h-auto rounded-2xl shadow-2xl border-4 border-metallic-gold"
-                      />
-                    </Shimmer>
-                  </Floating>
-                </div>
+            <div className="mb-8 sm:mb-12">
+              <div className="max-w-2xl mx-auto">
+                <img
+                  src="/a6t9c2rh0w6b1mmzirsbg9q80ikwli1i.jpg"
+                  alt="رفوف معدنية احترافية عالية الجودة للمستودعات والمخازن"
+                  className="w-full h-auto rounded-2xl shadow-2xl border-4 border-metallic-gold"
+                />
               </div>
-            </FadeIn>
+            </div>
 
             {/* Key Benefits - Professional Gold/Brown Combinations */}
-            <StaggerContainer staggerDelay={0.15} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12 max-w-5xl mx-auto">
-              <StaggerItem>
-                <Shimmer className="bg-gradient-to-br from-light-gold to-cream-gold p-4 sm:p-6 rounded-2xl shadow-lg border border-metallic-gold hover:shadow-xl transition-shadow duration-300">
-                  <div className="w-12 h-12 bg-classic-gold rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Crown className="w-6 h-6 text-chocolate-brown" />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">جودة استثنائية</h3>
-                  <p className="text-sm sm:text-base text-traditional-brown">مواد عالية الجودة مقاومة للصدأ والتآكل</p>
-                </Shimmer>
-              </StaggerItem>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12 max-w-5xl mx-auto">
+              <div className="bg-gradient-to-br from-light-gold to-cream-gold p-4 sm:p-6 rounded-2xl shadow-lg border border-metallic-gold">
+                <div className="w-12 h-12 bg-classic-gold rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Crown className="w-6 h-6 text-chocolate-brown" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">جودة استثنائية</h3>
+                <p className="text-sm sm:text-base text-traditional-brown">مواد عالية الجودة مقاومة للصدأ والتآكل</p>
+              </div>
               
-              <StaggerItem>
-                <Shimmer className="bg-gradient-to-br from-cream-gold to-light-brown p-4 sm:p-6 rounded-2xl shadow-lg border border-old-gold hover:shadow-xl transition-shadow duration-300">
-                  <div className="w-12 h-12 bg-metallic-gold rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Truck className="w-6 h-6 text-chocolate-brown" />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">توصيل مجاني</h3>
-                  <p className="text-sm sm:text-base text-traditional-brown">توصيل مجاني للرياض وجدة والدمام</p>
-                </Shimmer>
-              </StaggerItem>
+              <div className="bg-gradient-to-br from-cream-gold to-light-brown p-4 sm:p-6 rounded-2xl shadow-lg border border-old-gold">
+                <div className="w-12 h-12 bg-metallic-gold rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Truck className="w-6 h-6 text-chocolate-brown" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">توصيل مجاني</h3>
+                <p className="text-sm sm:text-base text-traditional-brown">توصيل مجاني للرياض وجدة والدمام</p>
+              </div>
               
-              <StaggerItem>
-                <Shimmer className="bg-gradient-to-br from-light-brown to-cream-gold p-4 sm:p-6 rounded-2xl shadow-lg border border-vegas-gold hover:shadow-xl transition-shadow duration-300">
-                  <div className="w-12 h-12 bg-vegas-gold rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Package className="w-6 h-6 text-chocolate-brown" />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">كميات كبيرة</h3>
-                  <p className="text-sm sm:text-base text-traditional-brown">مخزون كبير مع خصومات للكميات</p>
-                </Shimmer>
-              </StaggerItem>
+              <div className="bg-gradient-to-br from-light-brown to-cream-gold p-4 sm:p-6 rounded-2xl shadow-lg border border-vegas-gold">
+                <div className="w-12 h-12 bg-vegas-gold rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Package className="w-6 h-6 text-chocolate-brown" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-chocolate-brown mb-2">كميات كبيرة</h3>
+                <p className="text-sm sm:text-base text-traditional-brown">مخزون كبير مع خصومات للكميات</p>
+              </div>
               
-              <StaggerItem>
-                <Pulse color="rgba(34, 197, 94, 0.3)">
-                  <Shimmer className="bg-gradient-to-br from-green-100 to-green-200 p-4 sm:p-6 rounded-2xl shadow-lg border border-green-400 hover:shadow-xl transition-shadow duration-300">
-                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <Shield className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-bold text-green-800 mb-2">ضمان عام كامل</h3>
-                    <p className="text-sm sm:text-base text-green-700">ضمان شامل لمدة سنة كاملة على جميع المنتجات</p>
-                  </Shimmer>
-                </Pulse>
-              </StaggerItem>
-            </StaggerContainer>
+              <div className="bg-gradient-to-br from-green-100 to-green-200 p-4 sm:p-6 rounded-2xl shadow-lg border border-green-400">
+                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Shield className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-green-800 mb-2">ضمان عام كامل</h3>
+                <p className="text-sm sm:text-base text-green-700">ضمان شامل لمدة سنة كاملة على جميع المنتجات</p>
+              </div>
+            </div>
 
 
           </div>
