@@ -444,7 +444,7 @@ export default function QuickLeadForm() {
                 </label>
                 <select
                   {...register('city')}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white text-traditional-brown"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
                 >
                   <option value="">اختر المدينة</option>
                   <option value="الرياض">الرياض</option>
@@ -475,7 +475,7 @@ export default function QuickLeadForm() {
                 <input
                   {...register('neighborhood')}
                   type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white text-traditional-brown"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
                   placeholder="ابحث عن الحي"
                 />
                 {errors.neighborhood && (
@@ -491,7 +491,7 @@ export default function QuickLeadForm() {
               <input
                 {...register('street')}
                 type="text"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white text-traditional-brown"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
                 placeholder="اختبار"
               />
               {errors.street && (
@@ -507,7 +507,7 @@ export default function QuickLeadForm() {
                 <textarea
                   {...register('houseDescription')}
                   rows={1}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white resize-none text-traditional-brown"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white resize-none"
                   placeholder="وصف البيت"
                 />
               </div>
@@ -519,7 +519,7 @@ export default function QuickLeadForm() {
                 <input
                   {...register('postalCode')}
                   type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white text-traditional-brown"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-metallic-gold focus:border-metallic-gold transition-all duration-200 bg-gray-50 focus:bg-white"
                   placeholder="الرمز البريدي"
                 />
               </div>
